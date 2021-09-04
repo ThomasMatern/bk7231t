@@ -7,6 +7,8 @@ typedef void (*FUNCPTR)(void);
 typedef void (*FUNC_1PARAM_PTR)(void *ctxt);
 typedef void (*FUNC_2PARAM_PTR)(void *arg, uint8_t vif_idx);
 
+#undef MIN
+#undef MAX
 #define MAX(x, y)                  (((x) > (y)) ? (x) : (y))
 #define MIN(x, y)                  (((x) < (y)) ? (x) : (y))
 #define max(x, y)                  (((x) > (y)) ? (x) : (y))
@@ -93,7 +95,9 @@ extern void bk_printf(const char *fmt, ...);
 #define NULLPTR                  ((void *)0)
 #endif
 
+#ifndef BIT
 #define BIT(i)                   (1UL << (i))
+#endif
 
 static inline __uint16_t __bswap16(__uint16_t _x)
 {

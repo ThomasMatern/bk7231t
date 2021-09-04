@@ -33,7 +33,7 @@ out_path = "config.json"
 out_json["section"][1]["firmware"] = firmware_str
 out_json = json.dumps(out_json, sort_keys=True, indent=4)
 
-print(out_json)
+#print(out_json)
 
 with open(str(out_path), "w") as f:
     f.write(out_json)

@@ -33,6 +33,7 @@
 #include "port/net.h"
 #include "txu_cntrl.h"
 #include "rw_msdu.h"
+#include "app.h"
 
 #if CFG_ROLE_LAUNCH
 #include "role_launch.h"
@@ -65,7 +66,7 @@ extern void mcu_ps_bcn_callback(uint8_t *data, int len, hal_wifi_link_info_t *in
 static void rwnx_remove_added_interface(void)
 {
     int ret;
-    u8 test_mac[6];
+    char test_mac[6];
     struct mm_add_if_cfm *cfm;
     struct apm_start_cfm *apm_cfm = 0;
 
@@ -356,7 +357,6 @@ void bk_wlan_phy_show_cca(void)
 
 void bk_reboot(void)
 {
-    FUNCPTR reboot = 0;
     UINT32 wdt_val = 5;
     
     os_printf("bk_reboot\r\n");
@@ -385,6 +385,7 @@ void bk_reboot(void)
     GLOBAL_INT_RESTORE();
 #endif        
 }
+
 void bk_wlan_ap_init(network_InitTypeDef_st *inNetworkInitPara)
 {
     os_printf("Soft_AP_start\r\n");
@@ -399,7 +400,7 @@ void bk_wlan_ap_init(network_InitTypeDef_st *inNetworkInitPara)
 
     if(MAC_ADDR_NULL((u8 *)&g_ap_param_ptr->bssid))
     {
-        wifi_get_mac_address((u8 *)&g_ap_param_ptr->bssid, CONFIG_ROLE_AP);
+        wifi_get_mac_address((char *)&g_ap_param_ptr->bssid, CONFIG_ROLE_AP);
     }
 
     bk_wlan_ap_set_channel_config(bk_wlan_ap_get_default_channel());
@@ -519,7 +520,7 @@ void bk_wlan_sta_init(network_InitTypeDef_st *inNetworkInitPara)
     }
 
 	g_sta_param_ptr->retry_cnt = MAX_STA_RETRY_COUNT;
-    wifi_get_mac_address((u8 *)&g_sta_param_ptr->own_mac, CONFIG_ROLE_STA);
+    wifi_get_mac_address((char *)&g_sta_param_ptr->own_mac, CONFIG_ROLE_STA);
     if(!g_wlan_general_param)
     {
         g_wlan_general_param = (general_param_t *)os_zalloc(sizeof(general_param_t));
@@ -707,7 +708,7 @@ void bk_wlan_start_assign_scan(UINT8 **ssid_ary, UINT8 ssid_num)
     scan_param.num_ssids = ssid_num;
     for (int i = 0 ; i < ssid_num ; i++ )
     {
-        scan_param.ssids[i].length = MIN(SSID_MAX_LEN, os_strlen(ssid_ary[i]));
+        scan_param.ssids[i].length = MIN(SSID_MAX_LEN, os_strlen((char*)ssid_ary[i]));
         os_memcpy(scan_param.ssids[i].array, ssid_ary[i], scan_param.ssids[i].length);
     }
     rw_msg_send_scanu_req(&scan_param);
@@ -780,7 +781,7 @@ void bk_wlan_ap_init_adv(network_InitTypeDef_ap_st *inNetworkInitParaAP)
 
     if(MAC_ADDR_NULL((u8 *)&g_ap_param_ptr->bssid))
     {
-        wifi_get_mac_address((u8 *)&g_ap_param_ptr->bssid, CONFIG_ROLE_AP);
+        wifi_get_mac_address((char*)&g_ap_param_ptr->bssid, CONFIG_ROLE_AP);
     }
 
     if(!g_wlan_general_param)
@@ -1086,7 +1087,7 @@ OSStatus bk_wlan_get_link_status(LinkStatusTypeDef *outStatus)
     outStatus->security = g_sta_param_ptr->cipher_suite;
 	#endif
     os_memcpy(outStatus->bssid, cfm->bssid, 6);
-    ssid_len = MIN(SSID_MAX_LEN, os_strlen(cfm->ssid));
+    ssid_len = MIN(SSID_MAX_LEN, os_strlen((char*)cfm->ssid));
     os_memcpy(outStatus->ssid, cfm->ssid, ssid_len);
 
     os_free(cfm);

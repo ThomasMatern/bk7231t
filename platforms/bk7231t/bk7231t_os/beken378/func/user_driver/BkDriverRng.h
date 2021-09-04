@@ -31,6 +31,7 @@
 
 #pragma once
 #include "include.h"
+#include "rtos_pub.h"
 
 /** @addtogroup BK_PLATFORM
 * @{
@@ -72,7 +73,7 @@
  * @return    kGeneralErr   : if an error occurred with any step
  */
 OSStatus BkRandomNumberRead( void *inBuffer, int inByteCount );
-
+int bk_rand(void);
 /** @} */
 /** @} */
 

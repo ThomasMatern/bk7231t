@@ -9,6 +9,7 @@
 
 #include "tuya_hal_storge.h"
 #include "../errors_compat.h"
+#include "BkDriverFlash.h"
 
 /***********************************************************
 *************************micro define***********************
@@ -68,7 +69,7 @@ static UF_PARTITION_TABLE_S uf_file = {
 ***********************************************************/
 int tuya_hal_flash_read(const uint32_t addr, uint8_t *dst, const uint32_t size)
 {
-    uint32_t status;
+    UINT32 status;
     if(NULL == dst) {
         return OPRT_INVALID_PARM;
     }
@@ -76,7 +77,7 @@ int tuya_hal_flash_read(const uint32_t addr, uint8_t *dst, const uint32_t size)
 
     DD_HANDLE flash_handle;
     flash_handle = ddev_open(FLASH_DEV_NAME, &status, 0);
-    ddev_read(flash_handle, dst, size, addr);
+    ddev_read(flash_handle, (char*)dst, size, addr);
     ddev_close(flash_handle);
     
 	hal_flash_unlock();
@@ -87,7 +88,7 @@ int tuya_hal_flash_read(const uint32_t addr, uint8_t *dst, const uint32_t size)
 static uint32_t __uni_flash_is_protect_all(void)
 {
     DD_HANDLE flash_handle;
-    uint32_t status;
+    UINT32 status;
     uint32_t param;
 	
     flash_handle = ddev_open(FLASH_DEV_NAME, &status, 0);
@@ -108,7 +109,7 @@ int tuya_hal_flash_write(const uint32_t addr, const uint8_t *src, const uint32_t
 {
     DD_HANDLE flash_handle;
     uint32_t protect_flag;
-    uint32_t status;
+    UINT32 status;
     uint32_t param;
 
     if(NULL == src) 
@@ -156,7 +157,7 @@ int tuya_hal_flash_erase(const uint32_t addr, const uint32_t size)
 {
     uint16_t start_sec = (addr/PARTITION_SIZE);
     uint16_t end_sec = ((addr+size-1)/PARTITION_SIZE);
-    uint32_t status;
+    UINT32 status;
     uint32_t i = 0;
     uint32_t sector_addr;
     DD_HANDLE flash_handle;
@@ -219,7 +220,7 @@ int tuya_hal_flash_set_protect(const bool enable)
 {
     DD_HANDLE flash_handle;
     uint32_t  param;
-    uint32_t status;
+    UINT32 status;
 
     flash_handle = ddev_open(FLASH_DEV_NAME, &status, 0);
 

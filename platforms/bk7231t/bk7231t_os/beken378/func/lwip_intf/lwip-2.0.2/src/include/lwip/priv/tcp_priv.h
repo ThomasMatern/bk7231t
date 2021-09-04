@@ -82,6 +82,7 @@ err_t            tcp_send_empty_ack(struct tcp_pcb *pcb);
 void             tcp_rexmit  (struct tcp_pcb *pcb);
 void             tcp_rexmit_rto  (struct tcp_pcb *pcb);
 void             tcp_rexmit_fast (struct tcp_pcb *pcb);
+void		     tcp_rexmit_rto_commit(struct tcp_pcb *pcb);
 u32_t            tcp_update_rcv_ann_wnd(struct tcp_pcb *pcb);
 err_t            tcp_process_refused_data(struct tcp_pcb *pcb);
 
@@ -454,6 +455,7 @@ void tcp_rexmit_seg(struct tcp_pcb *pcb, struct tcp_seg *seg);
 void tcp_rst(u32_t seqno, u32_t ackno,
        const ip_addr_t *local_ip, const ip_addr_t *remote_ip,
        u16_t local_port, u16_t remote_port);
+err_t tcp_rexmit_rto_prepare(struct tcp_pcb *pcb);
 
 u32_t tcp_next_iss(struct tcp_pcb *pcb);
 

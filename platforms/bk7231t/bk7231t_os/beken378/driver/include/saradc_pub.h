@@ -74,10 +74,13 @@ typedef struct
     SARADC_MODE mode;
 } saradc_cal_val_t;
 
-typedef struct _saradc_calibrate_val_
+typedef union _saradc_calibrate_val_
 {
+	struct {
     unsigned short low;
     unsigned short high;
+	};
+	UINT32 raw;
 } saradc_calibrate_val;
 
 

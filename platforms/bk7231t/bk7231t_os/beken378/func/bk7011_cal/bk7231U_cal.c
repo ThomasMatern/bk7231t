@@ -1771,7 +1771,7 @@ void rwnx_cal_set_txpwr_by_rate(INT32 rate, UINT32 test_mode)
 
 void rwnx_cal_set_txpwr_by_channel(UINT32 channel)
 {
-    UINT32 ret, pwr_gain, rate;
+    UINT32 pwr_gain, rate;
     
     rate = EVM_DEFUALT_BLE_RATE;
     
@@ -3726,7 +3726,7 @@ INT32 bk7011_cal_tx_dc(INT32 *val)
 {
     INT32 detect_dc_low = 0;
     INT32 detect_dc_high = 0;
-    INT16 high, low;
+    INT16 high = 0, low = 0;
     INT32 index, gold_index = 0;
     INT32 i_index, q_index;
     INT32 srchcnt = 0;
@@ -5360,7 +5360,7 @@ INT32 bk7011_cal_rx_iq(INT32 *val)
 
     do 
     {
-        int ret_i, tx_ifilter, ret_q, tx_qfilter;
+        int ret_i, ret_q;
 
         if(manual_cal_need_load_cmtag_from_flash() == 0)
         {

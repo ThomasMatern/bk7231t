@@ -86,6 +86,7 @@ OPERATE_RET ty_uart_init(IN CONST TY_UART_PORT_E port,IN CONST TY_UART_BAUD_E ba
 
     bk_uart_initialize(port, &config, NULL);
     bk_uart_set_rx_callback(port, ty_read_uart_data_to_buffer, NULL);
+    return OPRT_OK;
 }
 
 /***********************************************************

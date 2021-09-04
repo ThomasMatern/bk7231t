@@ -2157,7 +2157,6 @@ void wpa_config_free_cred(struct wpa_cred *cred)
 void wpa_config_free(struct wpa_config *config)
 {
 	struct wpa_ssid *ssid, *prev = NULL;
-	struct wpa_cred *cred, *cprev;
 	int i;
 
 	ssid = config->ssid;
@@ -3581,25 +3580,6 @@ static int wpa_config_process_country(const struct global_parse_data *data,
 }
 
 
-static int wpa_config_process_load_dynamic_eap(
-	const struct global_parse_data *data, struct wpa_config *config,
-	int line, const char *so)
-{
-	int ret;
-	wpa_printf(MSG_DEBUG, "load_dynamic_eap=%s", so);
-	ret = eap_peer_method_load(so);
-	if (ret == -2) {
-		wpa_printf(MSG_DEBUG, "This EAP type was already loaded - not "
-			   "reloading.");
-	} else if (ret) {
-		wpa_printf(MSG_ERROR, "Line %d: Failed to load dynamic EAP "
-			   "method '%s'.", line, so);
-		return -1;
-	}
-	
-	return 0;
-}
-
 static int wpa_config_process_hessid(
 	const struct global_parse_data *data,
 	struct wpa_config *config, int line, const char *pos)
@@ -3793,7 +3773,6 @@ static const struct global_parse_data global_fields[] = {
 #ifndef CONFIG_NO_CONFIG_WRITE
 	{ INT(update_config), 0 },
 #endif /* CONFIG_NO_CONFIG_WRITE */
-	{ FUNC_NO_VAR(load_dynamic_eap), 0 },
 #ifdef CONFIG_WPS
 	{ FUNC(uuid), CFG_CHANGED_UUID },
 	{ STR_RANGE(device_name, 0, WPS_DEV_NAME_MAX_LEN),

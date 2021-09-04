@@ -111,11 +111,13 @@ extern void uart2_exit(void);
 extern void uart2_isr(void);
 
 extern INT32 os_null_printf(const char *fmt, ...);
+extern void set_printf_port(UINT8 port);
 extern void fatal_print(const char *fmt, ...);
 extern INT32 uart_printf(const char *fmt, ...);
 extern void bk_printf(const char *fmt, ...);
 extern void uart_send_byte(UINT8 ch, UINT8 data);
 extern void bk_send_string(UINT8 uport, const char *string);
+extern void bk_send_byte(UINT8 uport, UINT8 data);
 extern void uart_wait_tx_over();
 extern UINT8 uart_is_tx_fifo_empty(UINT8 uport);
 extern UINT8 uart_is_tx_fifo_full(UINT8 uport);

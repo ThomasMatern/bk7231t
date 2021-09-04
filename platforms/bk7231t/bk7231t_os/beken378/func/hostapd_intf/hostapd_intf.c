@@ -693,7 +693,7 @@ int wpa_get_bss_info(struct prism2_hostapd_param *param, int len)
         return -1;
 
     os_memcpy(param->u.bss_info.bssid, cfm->bssid, ETH_ALEN);
-    ssid_len = MIN(SSID_MAX_LEN, os_strlen(cfm->ssid));
+    ssid_len = MIN(SSID_MAX_LEN, os_strlen((char*)cfm->ssid));
     os_memcpy(param->u.bss_info.ssid, cfm->ssid, ssid_len);
     os_free(cfm);
 

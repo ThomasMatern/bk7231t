@@ -398,7 +398,7 @@ int result;
 
    
 	   vPortEnterCritical();
-       result = xTaskCreate( thread, ( signed portCHAR * ) name, stacksize, arg, prio, &CreatedTask );
+       result = xTaskCreate( thread, ( char * ) name, stacksize, arg, prio, &CreatedTask );
 
        vPortExitCritical();
 	   

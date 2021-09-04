@@ -34,47 +34,12 @@
 #include <stdint.h>
 #include "tuya_cloud_types.h"
 #include "tuya_ble_type.h"
+#include "tuya_ble_port.h"
 
 #define DEVICE_NAME_LEN         16
 
 
-typedef enum {
-    TY_BT_EVENT_DISCONNECTED,   /* APP断开连接 */
-    TY_BT_EVENT_CONNECTED,      /* APP连接上设备 */
-    TY_BT_EVENT_RX_DATA,        /* 接收到APP数据*/
-    TY_BT_EVENT_ADV_READY,      /* start adv. */
-}ty_bt_cb_event_t;
-
-typedef enum {
-    TY_BT_MODE_PERIPHERAL,
-    TY_BT_MODE_CENTRAL,
-}ty_bt_mode_t;
-
-
 typedef VOID (*TY_BT_MSG_CB)(INT_T id, ty_bt_cb_event_t e, tuya_ble_data_buf_t *buf);
-
-typedef struct {
-    CHAR_T name[DEVICE_NAME_LEN];
-    ty_bt_mode_t mode;
-    UCHAR_T link_num;
-    TY_BT_MSG_CB cb;
-    tuya_ble_data_buf_t *adv;
-    tuya_ble_data_buf_t *scan_rsp;
-}ty_bt_param_t;
-
-typedef enum {
-    TY_BT_SCAN_BY_NAME = 0x01,
-    TY_BT_SCAN_BY_MAC = 0x02,
-}ty_bt_scan_type_t;
-
-typedef struct {
-    CHAR_T scan_type; /* ref ty_bt_scan_type_t. */
-    CHAR_T name[DEVICE_NAME_LEN];
-    CHAR_T bd_addr[6];
-    SCHAR_T rssi;
-    UCHAR_T channel;
-    UCHAR_T timeout_s; /* second. */
-}ty_bt_scan_info_t;
 
 /**
  * @brief tuya_hal_bt_port_init

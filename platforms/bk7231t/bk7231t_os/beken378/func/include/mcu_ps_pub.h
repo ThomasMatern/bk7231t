@@ -48,6 +48,7 @@ extern UINT32 mcu_ps_tsf_cal(UINT64);
 extern UINT32 mcu_ps_machw_cal(void);
 extern UINT32 mcu_ps_machw_reset(void);
 extern UINT32 mcu_ps_machw_init(void);
+extern uint32_t mcu_ps_need_pstick(void);
 
 #define  PS_PWM_ID  FCLK_PWM_ID
 #if (PS_PWM_ID == PWM0)

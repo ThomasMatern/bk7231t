@@ -20,6 +20,7 @@
 #include "tuya_cloud_com_defs.h"
 #include "gw_intf.h"
 #include "gpio_test.h"
+#include "tuya_main.h"
 #include "tuya_gpio.h"
 #include "tuya_key.h"
 #include "tuya_led.h"
@@ -51,7 +52,7 @@ LED_HANDLE wifi_led_handle; //定义 wifi led 句柄
 
 /* Private function prototypes -----------------------------------------------*/
 VOID hw_report_all_dp_status(VOID);
-
+VOID hw_reset_flash_data(VOID);
 /* Private functions ---------------------------------------------------------*/
 /**
  * @Function: wifi_state_led_reminder
@@ -103,13 +104,10 @@ STATIC VOID wifi_state_led_reminder(IN CONST GW_WIFI_NW_STAT_E cur_stat)
 STATIC VOID wifi_key_process(TY_GPIO_PORT_E port,PUSH_KEY_TYPE_E type,INT_T cnt)
 {
     PR_DEBUG("port:%d,type:%d,cnt:%d",port,type,cnt);
-    OPERATE_RET op_ret = OPRT_OK;
-    UCHAR_T ucConnectMode = 0;
 
-    if (port = WIFI_KEY_PIN) {
+    if (port == WIFI_KEY_PIN) {
         if (LONG_KEY == type) { //press long enter linking network
             PR_NOTICE("key long press");
-            /* 手动移除设备 */
             tuya_iot_wf_gw_unactive();
         } else if (NORMAL_KEY == type) {
             PR_NOTICE("key normal press");
@@ -216,7 +214,7 @@ VOID mf_user_callback(VOID)
  * @Return: none
  * @Others: none
  */
-VOID prod_test(BOOL_T flag, SCHAR_T rssi)
+VOID prod_test(BOOL_T flag, CHAR_T rssi)
 {
     if (flag == FALSE || rssi < -60) 
     {
@@ -457,10 +455,10 @@ VOID wf_nw_status_cb(IN CONST GW_WIFI_NW_STAT_E stat)
 OPERATE_RET device_init(VOID)
 {
     OPERATE_RET op_ret = OPRT_OK;
-
+/*
     TY_IOT_CBS_S wf_cbs = {
-        status_changed_cb,\ 
-        gw_ug_inform_cb,\   
+        status_changed_cb,\
+        gw_ug_inform_cb,\
         gw_reset_cb,\
         dev_obj_dp_cb,\
         dev_raw_dp_cb,\
@@ -479,6 +477,6 @@ OPERATE_RET device_init(VOID)
         PR_ERR("tuya_iot_reg_get_wf_nw_stat_cb is error,err_num:%d",op_ret);
         return op_ret;
     }
-
+*/
     return op_ret;
 }

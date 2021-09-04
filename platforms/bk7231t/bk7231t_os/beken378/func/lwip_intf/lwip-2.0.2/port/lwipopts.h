@@ -398,7 +398,7 @@ The STM32F107 allows computing and verifying the IP, UDP, TCP and ICMP checksums
 
 //#ifdef CONFIG_ENABLE_MXCHIP
 /* save memory */
-#define PBUF_POOL_SIZE          (3)
+// #define PBUF_POOL_SIZE          (3)
 #define TCP_MSS                 (1500 - 40)
 /* TCP receive window. */
 #define TCP_WND                 (3 * TCP_MSS)

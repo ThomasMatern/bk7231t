@@ -77,4 +77,6 @@ int wifi_get_mac_address_from_efuse(UINT8 *mac);
 int wifi_write_efuse(UINT8 addr, UINT8 data);
 UINT8 wifi_read_efuse(UINT8 addr);
 
+uint32_t wifi_get_rescan_cnt(void);
+
 #endif

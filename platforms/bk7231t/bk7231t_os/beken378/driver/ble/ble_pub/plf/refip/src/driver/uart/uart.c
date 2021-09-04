@@ -251,7 +251,7 @@ int uart_putchar(char * st)
 
 int uart_printf(const char *fmt,...)
 { 
-	int n;	
+	int n = 0;
 #if UART_PRINTF_EN
 	va_list ap;
 	va_start(ap, fmt);
@@ -396,7 +396,7 @@ void uart_finish_transfers(void)
 }
 
 
-void ble_uart_read(uint8_t *bufptr, uint32_t size, uint8_t (*callback) (void*, uint8_t), void* dummy)
+void ble_uart_read(uint8_t *bufptr, uint32_t size, void (*callback) (void*, uint8_t), void* dummy)
 {
     // Sanity check
     ASSERT_ERR(bufptr != NULL);
@@ -409,7 +409,7 @@ void ble_uart_read(uint8_t *bufptr, uint32_t size, uint8_t (*callback) (void*, u
 
 
 
-void ble_uart_write(uint8_t *bufptr, uint32_t size, uint8_t (*callback) (void*, uint8_t), void* dummy)
+void ble_uart_write(uint8_t *bufptr, uint32_t size, void (*callback) (void*, uint8_t), void* dummy)
 {
 	// Sanity check
 	ASSERT_ERR(bufptr != NULL);

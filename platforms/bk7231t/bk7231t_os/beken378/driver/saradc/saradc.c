@@ -15,7 +15,7 @@
 #endif
 
 saradc_desc_t *saradc_desc = NULL;
-saradc_calibrate_val saradc_val = {0x55, 0x354};
+saradc_calibrate_val saradc_val = {{0x55, 0x354}};
 static volatile u8 saradc_is_busy = 0;
 static DD_OPERATIONS saradc_op = {
             saradc_open,

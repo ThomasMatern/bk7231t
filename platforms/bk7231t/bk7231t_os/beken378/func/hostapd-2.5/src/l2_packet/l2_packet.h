@@ -108,7 +108,8 @@ int l2_packet_get_own_addr(struct l2_packet_data *l2, u8 *addr);
  */
 int l2_packet_send(struct l2_packet_data *l2, const u8 *dst_addr, u16 proto,
 		   const u8 *buf, size_t len);
-
+int l2_packet_send_sync(struct l2_packet_data *l2, const u8 *dst_addr, u16 proto,
+		   const u8 *buf, size_t len);
 /**
  * l2_packet_get_ip_addr - Get the current IP address from the interface
  * @l2: Pointer to internal l2_packet data from l2_packet_init()

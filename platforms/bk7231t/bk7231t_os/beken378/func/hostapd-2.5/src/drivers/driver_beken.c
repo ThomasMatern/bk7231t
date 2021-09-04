@@ -1297,8 +1297,8 @@ int hostap_set_ap(void *priv, struct wpa_driver_ap_params *params)
     return ret;
 }
 
-static void hostap_poll_client_null_frame(void *priv, const u8 *own_addr,
-        const u8 *addr, int qos)
+static void hostap_poll_client_null_frame(void *priv, u8 *own_addr,
+        u8 *addr, int qos)
 {
 	int ret;
     struct hostap_driver_data *drv = priv;
@@ -1691,7 +1691,7 @@ int wpa_driver_get_ssid(void *priv, u8 *ssid)
         return -1;
     }
 
-	len = MIN(SSID_MAX_LEN, os_strlen(param->u.bss_info.ssid));
+	len = MIN(SSID_MAX_LEN, os_strlen((char*)param->u.bss_info.ssid));
     os_memcpy(ssid, param->u.bss_info.ssid, len);
     os_free(buf);
 

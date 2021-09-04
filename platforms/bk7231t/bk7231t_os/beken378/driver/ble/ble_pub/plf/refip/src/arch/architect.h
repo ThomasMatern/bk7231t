@@ -222,6 +222,9 @@ void dump_data(uint8_t* data, uint16_t length);
 
 #else
 /// Assertions showing a critical error that could require a full system reset
+#ifdef ASSERT_ERR
+#undef ASSERT_ERR
+#endif
 #define ASSERT_ERR(cond)
 
 /// Assertions showing a critical error that could require a full system reset

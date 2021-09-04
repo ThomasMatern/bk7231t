@@ -518,7 +518,7 @@ void memp_dump_Command( char *pcWriteBuffer, int xWriteBufferLen, int argc, char
     cmd_printf("----------------------------------------------------\r\n");
     for(i=0; i<MEMP_MAX; i++) {
 		tmp = (struct memp_desc*)memp_pools[i];
-        cmd_printf("%-16s %-5d %-4d 0x%08x %-4d\r\n", 
+        cmd_printf("%-16s %-5d %-4d %p %-4d\r\n",
 			tmp->desc, tmp->num, tmp->stats->used,
 			tmp->base, tmp->size);
     }

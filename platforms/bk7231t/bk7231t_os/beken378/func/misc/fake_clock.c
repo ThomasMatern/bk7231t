@@ -196,7 +196,7 @@ extern int increase_tick;
 UINT32 timer_cal_tick(void)
 {
     UINT32 fclk, tmp2;
-    UINT32 machw;
+    UINT32 machw = 0;
     INT32 lost;
     GLOBAL_INT_DECLARATION();
 
@@ -239,10 +239,6 @@ UINT32 timer_cal_tick(void)
     GLOBAL_INT_RESTORE();
     return 0 ;
 
-CAL_RESET:
-    timer_cal_init();
-    GLOBAL_INT_RESTORE();
-    return 0 ;
 }
 
 

@@ -199,6 +199,8 @@ static void hostapd_wpa_auth_set_eapol(void *ctx, const u8 *addr,
 			sta->eapol_sm->dot1xAuthEapolFramesTx++;
 		break;
 #endif
+	default:
+		break;
 	}
 }
 
@@ -220,6 +222,7 @@ static int hostapd_wpa_auth_get_eapol(void *ctx, const u8 *addr,
 		return -1;
 	}
 #endif
+	return -1;
 }
 
 

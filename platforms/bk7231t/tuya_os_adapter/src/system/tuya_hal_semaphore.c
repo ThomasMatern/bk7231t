@@ -35,6 +35,7 @@ typedef struct
     xSemaphoreHandle sem;
 }SEM_MANAGE,*P_SEM_MANAGE;
 
+extern void bk_printf(const char *fmt, ...);
 
 /***********************************************************
 *************************variable define********************
@@ -50,7 +51,7 @@ typedef struct
 *  Return: NULL失败，非NULL成功
 *  Date: 120427
 ***********************************************************/
-static SEM_HANDLE CreateSemaphore(VOID)
+static SEM_HANDLE CreateSemaphore(void)
 {
     P_SEM_MANAGE pSemManage;
     

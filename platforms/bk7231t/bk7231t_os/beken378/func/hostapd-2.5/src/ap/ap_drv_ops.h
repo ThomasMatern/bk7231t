@@ -230,7 +230,7 @@ static inline int hostapd_drv_set_authmode(struct hostapd_data *hapd,
 }
 
 static inline void hostapd_drv_poll_client(struct hostapd_data *hapd,
-					   const u8 *own_addr, const u8 *addr,
+					   u8 *own_addr, u8 *addr,
 					   int qos)
 {
 	if (hapd->driver == NULL || hapd->driver->poll_client == NULL)

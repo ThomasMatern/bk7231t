@@ -4,10 +4,6 @@ APP_PATH=$1
 APP_NAME=$2
 APP_VERSION=$3
 USER_CMD=$4
-echo APP_PATH=$APP_PATH
-echo APP_NAME=$APP_NAME
-echo APP_VERSION=$APP_VERSION
-echo USER_CMD=$USER_CMD
 
 
 fatal() {
@@ -30,24 +26,8 @@ fi
 cd `dirname $0`
 
 TARGET_PLATFORM=bk7231t
-TARGET_PLATFORM_REPO=https://airtake-public-data-1254153901.cos.ap-shanghai.myqcloud.com/smart/embed/pruduct/bk7231t_1.0.22-beta.1.zip
-TARGET_PLATFORM_VERSION=1.0.22-beta.1
 ROOT_DIR=$(pwd)
 
-# 下载编译环境
-if [ ! -d platforms/$TARGET_PLATFORM ]; then
-    if [ -n "$TARGET_PLATFORM_REPO" ]; then
-        # download toolchain
-        cd platforms
-        wget $TARGET_PLATFORM_REPO 
-        unzip -o ${TARGET_PLATFORM}_${TARGET_PLATFORM_VERSION}.zip
-        mv ${TARGET_PLATFORM}_${TARGET_PLATFORM_VERSION}_temp ${TARGET_PLATFORM}
-        rm ${TARGET_PLATFORM}_${TARGET_PLATFORM_VERSION}.zip
-        cd -
-    fi
-fi
-
-# 判断当前编译环境是否OK
 PLATFORM_BUILD_PATH_FILE=${ROOT_DIR}/platforms/$TARGET_PLATFORM/toolchain/build_path
 if [ -e $PLATFORM_BUILD_PATH_FILE ]; then
     . $PLATFORM_BUILD_PATH_FILE

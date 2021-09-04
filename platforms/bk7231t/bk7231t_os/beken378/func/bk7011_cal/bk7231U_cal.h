@@ -90,15 +90,15 @@ typedef union
         volatile unsigned int Reserved      : 2;  /**< NC */
         volatile unsigned int rcen          : 1;  /**< Enable BK7011 (1: Enable) */
         volatile unsigned int Reserved_     : 4;  /**< NC */
-        volatile unsigned int ch0ld         : 1;  /**< BK7011 LDÊä³öÖµ£¨ÊÇ·ñËø¶¨£© */
+        volatile unsigned int ch0ld         : 1;  /**< BK7011 LDï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
         volatile unsigned int lnarssi       : 1;  /**< BK7011 LNA RSSI×´Ì¬ */
         volatile unsigned int Reserved__    : 2;  /**< NC */
-        volatile unsigned int ch0shdnstat   : 1;  /**< BK7011ÊÇ·ñ´¦ÓÚshutdown×´Ì¬ */
+        volatile unsigned int ch0shdnstat   : 1;  /**< BK7011ï¿½Ç·ï¿½ï¿½ï¿½shutdown×´Ì¬ */
         volatile unsigned int Reserved___   : 3;  /**< NC */
-        volatile unsigned int rcstate       : 3;  /**< µ±Ç°RCµÄ×´Ì¬;0x00=SPI_RESET ;0x01=SHUTDOWN ;0x02=WAIT_SPI (SPIÕýÔÚ²Ù×÷);0x03=WAIT_LOCK£¨RFPLLÕýÔÚLock£©;0x04=ACTIVE */
+        volatile unsigned int rcstate       : 3;  /**< ï¿½ï¿½Ç°RCï¿½ï¿½×´Ì¬;0x00=SPI_RESET ;0x01=SHUTDOWN ;0x02=WAIT_SPI (SPIï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½);0x03=WAIT_LOCKï¿½ï¿½RFPLLï¿½ï¿½ï¿½ï¿½Lockï¿½ï¿½;0x04=ACTIVE */
         volatile unsigned int Reserved____  : 11; /**< NC */
-        volatile unsigned int spireset      : 1;  /**< Reset BK7011µÄSPI¼Ä´æÆ÷ */
-        volatile unsigned int forceenable   : 1;  /**< Ç¿ÖÆ¿ØÖÆBK7011µÄ½Ó¿ÚÐÅºÅ */
+        volatile unsigned int spireset      : 1;  /**< Reset BK7011ï¿½ï¿½SPIï¿½Ä´ï¿½ï¿½ï¿½ */
+        volatile unsigned int forceenable   : 1;  /**< Ç¿ï¿½Æ¿ï¿½ï¿½ï¿½BK7011ï¿½Ä½Ó¿ï¿½ï¿½Åºï¿½ */
     } bits;
     volatile unsigned int value;
 } BK7011_RC_BEKEN_REG0x0_TypeDef;
@@ -109,7 +109,7 @@ typedef union
     struct
     {
         volatile unsigned int trxregstat    : 28; /**< TRx Register Stat.;0x0: register is idle;0x1: register is updating. Can not write register again */
-        volatile unsigned int prescaler     : 4;  /**< SPIÊ±ÖÓÆµÂÊ¿ØÖÆ=RC_Clock (80 MHz)/2/PRESCALE */
+        volatile unsigned int prescaler     : 4;  /**< SPIÊ±ï¿½ï¿½Æµï¿½Ê¿ï¿½ï¿½ï¿½=RC_Clock (80 MHz)/2/PRESCALE */
     } bits;
     volatile unsigned int value;
 } BK7011_RC_BEKEN_REG0x1_TypeDef;
@@ -182,13 +182,13 @@ typedef union
 {
     struct
     {
-        volatile unsigned int FCH0SHDN  : 1;  /**< Ç¿ÖÆÄ£Ê½ÏÂµÄSHDN */
-        volatile unsigned int FCH0RXEN  : 1;  /**< Ç¿ÖÆÄ£Ê½ÏÂµÄRXEN */
-        volatile unsigned int FCH0TXEN  : 1;  /**< Ç¿ÖÆÄ£Ê½ÏÂµÄTXEN */
-        volatile unsigned int FCH0RXHP  : 1;  /**< Ç¿ÖÆÄ£Ê½ÏÂµÄRXHP */
+        volatile unsigned int FCH0SHDN  : 1;  /**< Ç¿ï¿½ï¿½Ä£Ê½ï¿½Âµï¿½SHDN */
+        volatile unsigned int FCH0RXEN  : 1;  /**< Ç¿ï¿½ï¿½Ä£Ê½ï¿½Âµï¿½RXEN */
+        volatile unsigned int FCH0TXEN  : 1;  /**< Ç¿ï¿½ï¿½Ä£Ê½ï¿½Âµï¿½TXEN */
+        volatile unsigned int FCH0RXHP  : 1;  /**< Ç¿ï¿½ï¿½Ä£Ê½ï¿½Âµï¿½RXHP */
         volatile unsigned int Reserved  : 4;  /**< NC */
-        volatile unsigned int FCH0B     : 8;  /**< Ç¿ÖÆÄ£Ê½ÏÂÔöÒæ¿ØÖÆ */
-        volatile unsigned int FCH0EN    : 1;  /**< Ç¿ÖÆ¿ØÖÆRF½Ó¿ÚÐÅºÅ */
+        volatile unsigned int FCH0B     : 8;  /**< Ç¿ï¿½ï¿½Ä£Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+        volatile unsigned int FCH0EN    : 1;  /**< Ç¿ï¿½Æ¿ï¿½ï¿½ï¿½RFï¿½Ó¿ï¿½ï¿½Åºï¿½ */
         volatile unsigned int Reserved_ : 15; /**< NC */
     } bits;
     volatile unsigned int value;
@@ -199,8 +199,8 @@ typedef union
 {
     struct
     {
-        volatile unsigned int FRXON    : 1;  /**< Ç¿ÖÆÄ£Ê½ÏÂRX ON */
-        volatile unsigned int FTXON    : 1;  /**< Ç¿ÖÆÄ£Ê½ÏÂTX ON */
+        volatile unsigned int FRXON    : 1;  /**< Ç¿ï¿½ï¿½Ä£Ê½ï¿½ï¿½RX ON */
+        volatile unsigned int FTXON    : 1;  /**< Ç¿ï¿½ï¿½Ä£Ê½ï¿½ï¿½TX ON */
         volatile unsigned int Reserved : 30; /**< NC */
     } bits;
     volatile unsigned int value;
@@ -222,13 +222,13 @@ typedef union
 {
     struct
     {
-        volatile unsigned int RXAVGQRD    : 12; /**< QÂ·¼ÆËã½á¹û */
-        volatile unsigned int RXAVGIRD    : 12; /**< IÂ·¼ÆËã½á¹û */
+        volatile unsigned int RXAVGQRD    : 12; /**< QÂ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+        volatile unsigned int RXAVGIRD    : 12; /**< IÂ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
         volatile unsigned int Reserved    : 4;  /**< NC */
         volatile unsigned int RXHPFBYPASS : 1;  /**< RX HPF bypass */
         volatile unsigned int RXIQSWAP    : 1;  /**< RX IQ SWAP */
-        volatile unsigned int RXAVGMODE   : 1;  /**< 0£ºÇóÈ¡ÐÅºÅµÄÆ½¾ùÖµ;1£ºÇóÈ¡ÐÅºÅ¾ø¶ÔÖµµÃÆ½¾ùÖµ */
-        volatile unsigned int RXDCCALEN   : 1;  /**< Ê¹ÄÜRX DC¼ÆËã(1) */
+        volatile unsigned int RXAVGMODE   : 1;  /**< 0ï¿½ï¿½ï¿½ï¿½È¡ï¿½ÅºÅµï¿½Æ½ï¿½ï¿½Öµ;1ï¿½ï¿½ï¿½ï¿½È¡ï¿½ÅºÅ¾ï¿½ï¿½ï¿½Öµï¿½ï¿½Æ½ï¿½ï¿½Öµ */
+        volatile unsigned int RXDCCALEN   : 1;  /**< Ê¹ï¿½ï¿½RX DCï¿½ï¿½ï¿½ï¿½(1) */
     } bits;
     volatile unsigned int value;
 } BK7011_RC_BEKEN_REG0x3C_TypeDef;
@@ -238,11 +238,11 @@ typedef union
 {
     struct
     {
-        volatile unsigned int RXDCQRD  : 12; /**< QÂ·DC¼ÆËã½á¹û */
-        volatile unsigned int RXDCIRD  : 12; /**< IÂ·DC¼ÆËã½á¹û */
+        volatile unsigned int RXDCQRD  : 12; /**< QÂ·DCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+        volatile unsigned int RXDCIRD  : 12; /**< IÂ·DCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
         volatile unsigned int Reserved : 6;  /**< NC */
-        volatile unsigned int RXCOMPEN : 1;  /**< Ê¹ÄÜMismatch²¹³¥(1) */
-        volatile unsigned int RXCALEN  : 1;  /**< Ê¹ÄÜMismatch¼ÆËã(1) */
+        volatile unsigned int RXCOMPEN : 1;  /**< Ê¹ï¿½ï¿½Mismatchï¿½ï¿½ï¿½ï¿½(1) */
+        volatile unsigned int RXCALEN  : 1;  /**< Ê¹ï¿½ï¿½Mismatchï¿½ï¿½ï¿½ï¿½(1) */
     } bits;
     volatile unsigned int value;
 } BK7011_RC_BEKEN_REG0x3E_TypeDef;
@@ -252,9 +252,9 @@ typedef union
 {
     struct
     {
-        volatile unsigned int RXPHASEERRRD : 10; /**< ¹À¼Æ³öÀ´µÄÏàÎ»Îó²î£¬phase_err_est*2^9£¬ÓÐ·ûºÅ */
+        volatile unsigned int RXPHASEERRRD : 10; /**< ï¿½ï¿½ï¿½Æ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½î£¬phase_err_est*2^9ï¿½ï¿½ï¿½Ð·ï¿½ï¿½ï¿½ */
         volatile unsigned int Reserved     : 6;  /**< NC */
-        volatile unsigned int RXAMPERRRD   : 10; /**< ¹À¼Æ³öÀ´µÄ·ù¶ÈÎó²î£¬amp_err_est*2^9£¬ÓÐ·ûºÅ */
+        volatile unsigned int RXAMPERRRD   : 10; /**< ï¿½ï¿½ï¿½Æ³ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½î£¬amp_err_est*2^9ï¿½ï¿½ï¿½Ð·ï¿½ï¿½ï¿½ */
         volatile unsigned int Reserved_    : 6;  /**< NC */
     } bits;
     volatile unsigned int value;
@@ -265,7 +265,7 @@ typedef union
 {
     struct
     {
-        volatile unsigned int RXTY2RD  : 10; /**< ¹À¼Æ³öÀ´µÄTY2£¬(ty2-0.5)*2^10£¬ÓÐ·ûºÅ */
+        volatile unsigned int RXTY2RD  : 10; /**< ï¿½ï¿½ï¿½Æ³ï¿½ï¿½ï¿½ï¿½ï¿½TY2ï¿½ï¿½(ty2-0.5)*2^10ï¿½ï¿½ï¿½Ð·ï¿½ï¿½ï¿½ */
         volatile unsigned int Reserved : 22; /**< NC */
     } bits;
     volatile unsigned int value;
@@ -276,8 +276,8 @@ typedef union
 {
     struct
     {
-        volatile unsigned int RXDCQWR  : 12; /**< ²¹³¥Ê±Ê¹ÓÃµÄQÂ·DC */
-        volatile unsigned int RXDCIWR  : 12; /**< ²¹³¥Ê±Ê¹ÓÃµÄIÂ·DC */
+        volatile unsigned int RXDCQWR  : 12; /**< ï¿½ï¿½ï¿½ï¿½Ê±Ê¹ï¿½Ãµï¿½QÂ·DC */
+        volatile unsigned int RXDCIWR  : 12; /**< ï¿½ï¿½ï¿½ï¿½Ê±Ê¹ï¿½Ãµï¿½IÂ·DC */
         volatile unsigned int Reserved : 8;  /**< NC */
     } bits;
     volatile unsigned int value;
@@ -288,9 +288,9 @@ typedef union
 {
     struct
     {
-        volatile unsigned int RXPHASEERRWR : 10; /**< ²¹³¥Ê±Ê¹ÓÃµÄphase_err*ty2*2^9 */
+        volatile unsigned int RXPHASEERRWR : 10; /**< ï¿½ï¿½ï¿½ï¿½Ê±Ê¹ï¿½Ãµï¿½phase_err*ty2*2^9 */
         volatile unsigned int Reserved     : 6;  /**< NC */
-        volatile unsigned int RXAMPERRWR   : 10; /**< ²¹³¥Ê±Ê¹ÓÃµÄty2/(1+amp_err)*2^9 */
+        volatile unsigned int RXAMPERRWR   : 10; /**< ï¿½ï¿½ï¿½ï¿½Ê±Ê¹ï¿½Ãµï¿½ty2/(1+amp_err)*2^9 */
         volatile unsigned int Reserved_    : 6;  /**< NC */
     } bits;
     volatile unsigned int value;
@@ -301,14 +301,14 @@ typedef union
 {
     struct
     {
-        volatile unsigned int QCONSTANT   : 10; /**< µ±·¢Éä³£ÊýÊ±£¬QµÄÖµ */
+        volatile unsigned int QCONSTANT   : 10; /**< ï¿½ï¿½ï¿½ï¿½ï¿½ä³£ï¿½ï¿½Ê±ï¿½ï¿½Qï¿½ï¿½Öµ */
         volatile unsigned int Reserved    : 6;  /**< NC */
-        volatile unsigned int ICONSTANT   : 10; /**< µ±·¢Éä³£ÊýÊ±£¬IµÄÖµ */
+        volatile unsigned int ICONSTANT   : 10; /**< ï¿½ï¿½ï¿½ï¿½ï¿½ä³£ï¿½ï¿½Ê±ï¿½ï¿½Iï¿½ï¿½Öµ */
         volatile unsigned int DPDCOMPEN   : 1;  /**< DPD Compensation Enable */
         volatile unsigned int DPDCALEN    : 1;  /**< DPD Calculation Enable */
         volatile unsigned int DPDEN       : 1;  /**< DPD Enable] */
-        volatile unsigned int TXCOMPDIS   : 1;  /**< ·¢ËÍ²¹³¥¹¦ÄÜ½ûÖ¹£º;0x0: Ê¹ÄÜ·¢ËÍ²¹³¥;0x1: ½ûÖ¹·¢ËÍ²¹³¥ */
-        volatile unsigned int TESTPATTERN : 2;  /**< 0£ºÕý³£Ä£Ê½£¬·¢ÉäÕý³£À´×ÔModemµÄÊý¾Ý */
+        volatile unsigned int TXCOMPDIS   : 1;  /**< ï¿½ï¿½ï¿½Í²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü½ï¿½Ö¹ï¿½ï¿½;0x0: Ê¹ï¿½Ü·ï¿½ï¿½Í²ï¿½ï¿½ï¿½;0x1: ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½Í²ï¿½ï¿½ï¿½ */
+        volatile unsigned int TESTPATTERN : 2;  /**< 0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Modemï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
     } bits;
     volatile unsigned int value;
 } BK7011_RC_BEKEN_REG0x4C_TypeDef;
@@ -319,10 +319,10 @@ typedef union
     struct
     {
         volatile unsigned int Reserved  : 12; /**< NC */
-        volatile unsigned int TXSINAMP  : 4;  /**< ÕýÏÒ²¨·ù¶Èµ÷ÕûÏµÊý¡£Ð¡Êý±íÊ¾£¬x.yyy¡£·¶Î§ÊÇ[0 15/8] */
-        volatile unsigned int TXSINMODE : 2;  /**< 0£ºI/QÂ··¢Éä¸´ÊýÕýÏÒ²¨;1£º½ö½öIÂ··¢Éä£¬QÂ··¢Éä0;2£º½ö½öQÂ··¢Éä£¬IÂ··¢Éä0;3£º±£Áô */
+        volatile unsigned int TXSINAMP  : 4;  /**< ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½Èµï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½x.yyyï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½[0 15/8] */
+        volatile unsigned int TXSINMODE : 2;  /**< 0ï¿½ï¿½I/QÂ·ï¿½ï¿½ï¿½ä¸´ï¿½ï¿½ï¿½ï¿½ï¿½Ò²ï¿½;1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IÂ·ï¿½ï¿½ï¿½ä£¬QÂ·ï¿½ï¿½ï¿½ï¿½0;2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½QÂ·ï¿½ï¿½ï¿½ä£¬IÂ·ï¿½ï¿½ï¿½ï¿½0;3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
         volatile unsigned int Reserved_ : 4;  /**< NC */
-        volatile unsigned int TXSINF    : 10; /**< ·¢ÉäÕýÏÒ²¨ÆµÂÊ;TX_SIN_F=2*pi*F/80e6*2^8£¬FÊÇ·¢ÉäÆµÂÊ */
+        volatile unsigned int TXSINF    : 10; /**< ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò²ï¿½Æµï¿½ï¿½;TX_SIN_F=2*pi*F/80e6*2^8ï¿½ï¿½Fï¿½Ç·ï¿½ï¿½ï¿½Æµï¿½ï¿½ */
     } bits;
     volatile unsigned int value;
 } BK7011_RC_BEKEN_REG0x4D_TypeDef;
@@ -332,10 +332,10 @@ typedef union
 {
     struct
     {
-        volatile unsigned int hbf40sel  : 1;  /**< 40MÄ£Ê½ÉÏ²ÉÑùÂË²¨Æ÷ÏµÊý  1£º beken ÏµÊý 0£ºrw ÏµÊý */
-        volatile unsigned int hbf40bp   : 1;  /**< 40MÄ£Ê½ÉÏ²ÉÑùÂË²¨Æ÷ bypass */
-        volatile unsigned int hbf20sel  : 1;  /**< 20MÄ£Ê½ÉÏ²ÉÑùÂË²¨Æ÷ÏµÊý  1£º beken ÏµÊý 0£ºrw ÏµÊý */
-        volatile unsigned int hbf20bp   : 1;  /**< 20MÄ£Ê½ÉÏ²ÉÑùÂË²¨Æ÷ bypass */
+        volatile unsigned int hbf40sel  : 1;  /**< 40MÄ£Ê½ï¿½Ï²ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½Ïµï¿½ï¿½  1ï¿½ï¿½ beken Ïµï¿½ï¿½ 0ï¿½ï¿½rw Ïµï¿½ï¿½ */
+        volatile unsigned int hbf40bp   : 1;  /**< 40MÄ£Ê½ï¿½Ï²ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ bypass */
+        volatile unsigned int hbf20sel  : 1;  /**< 20MÄ£Ê½ï¿½Ï²ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½Ïµï¿½ï¿½  1ï¿½ï¿½ beken Ïµï¿½ï¿½ 0ï¿½ï¿½rw Ïµï¿½ï¿½ */
+        volatile unsigned int hbf20bp   : 1;  /**< 20MÄ£Ê½ï¿½Ï²ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ bypass */
         volatile unsigned int Reserved_ : 28; /**< NC */
     } bits;
     volatile unsigned int value;
@@ -346,9 +346,9 @@ typedef union
 {
     struct
     {
-        volatile unsigned int TXQDCCOMP : 10; /**< Q DC offset£¬[-512 511] */
+        volatile unsigned int TXQDCCOMP : 10; /**< Q DC offsetï¿½ï¿½[-512 511] */
         volatile unsigned int Reserved  : 6;  /**< NC */
-        volatile unsigned int TXIDCCOMP : 10; /**< I DC offset£¬[-512 511] */
+        volatile unsigned int TXIDCCOMP : 10; /**< I DC offsetï¿½ï¿½[-512 511] */
         volatile unsigned int Reserved_ : 6;  /**< NC */
     } bits;
     volatile unsigned int value;
@@ -359,9 +359,9 @@ typedef union
 {
     struct
     {
-        volatile unsigned int TXQGAINCOMP : 10; /**< 0 ~ 1023/1024£¬step:1/1024 */
+        volatile unsigned int TXQGAINCOMP : 10; /**< 0 ~ 1023/1024ï¿½ï¿½step:1/1024 */
         volatile unsigned int Reserved    : 6;  /**< NC */
-        volatile unsigned int TXIGAINCOMP : 10; /**<  0 ~ 1023/1024£¬step:1/1024 */
+        volatile unsigned int TXIGAINCOMP : 10; /**<  0 ~ 1023/1024ï¿½ï¿½step:1/1024 */
         volatile unsigned int Reserved_   : 6;  /**< NC */
     } bits;
     volatile unsigned int value;
@@ -372,9 +372,9 @@ typedef union
 {
     struct
     {
-        volatile unsigned int TXTY2       : 10; /**< 512/1024 ~ (512+1023)/1024£¬step:1/1024 */
+        volatile unsigned int TXTY2       : 10; /**< 512/1024 ~ (512+1023)/1024ï¿½ï¿½step:1/1024 */
         volatile unsigned int Reserved    : 6;  /**< NC */
-        volatile unsigned int TXPHASECOMP : 10; /**< -512/1024~ 511/1024£¬step:1/1024 */
+        volatile unsigned int TXPHASECOMP : 10; /**< -512/1024~ 511/1024ï¿½ï¿½step:1/1024 */
         volatile unsigned int Reserved_   : 6;  /**< NC */
     } bits;
     volatile unsigned int value;
@@ -386,9 +386,9 @@ typedef union
     struct
     {
         volatile unsigned int Reserved         : 6;  /**< NC */
-        volatile unsigned int IQCONSTANTIQCALP : 10; /**< IQÐ£×¼£¬IQ CONSTANT ÊäÈëÖµÕýÖµ */
-        volatile unsigned int TXPREGAIN        : 5;  /**< IQÐÅºÅÔöÒæ¿ØÖÆ;0£º1.75 dB£»;¡­. 31£º-6dB;; */
-        volatile unsigned int IQCONSTANTPOUT   : 10; /**< ¹¦ÂÊÐ£×¼£¬IQ CONSTANT ÊäÈëÖµ */
+        volatile unsigned int IQCONSTANTIQCALP : 10; /**< IQÐ£×¼ï¿½ï¿½IQ CONSTANT ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½Öµ */
+        volatile unsigned int TXPREGAIN        : 5;  /**< IQï¿½Åºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½;0ï¿½ï¿½1.75 dBï¿½ï¿½;ï¿½ï¿½. 31ï¿½ï¿½-6dB;; */
+        volatile unsigned int IQCONSTANTPOUT   : 10; /**< ï¿½ï¿½ï¿½ï¿½Ð£×¼ï¿½ï¿½IQ CONSTANT ï¿½ï¿½ï¿½ï¿½Öµ */
         volatile unsigned int TXIQSWAP         : 1;  /**<  IQ Swap */
     } bits;
     volatile unsigned int value;
@@ -400,16 +400,16 @@ typedef union
     struct
     {
         volatile unsigned int STRXADCIQ  : 1; /**< RX ADC IQÐ£×¼ Settling time 0:300us;1:600us */
-        volatile unsigned int TSSIPOUTTH : 8; /**< ¹¦ÂÊÐ£×¼£¬×î¼ÑÊä³ö¹¦ÂÊ¶ÔÓ¦µÄTSSIÃÅÏÞ */
+        volatile unsigned int TSSIPOUTTH : 8; /**< ï¿½ï¿½ï¿½ï¿½Ð£×¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¶ï¿½Ó¦ï¿½ï¿½TSSIï¿½ï¿½ï¿½ï¿½ */
         volatile unsigned int DSELVA     : 1; /**< TSSI or AGC gain setting for versiong A, output 0: TSSI 1:AGC gain setting */
-        volatile unsigned int TXDCN      : 2; /**< TX DC Á½·Ö·¨µÚÒ»´ÎÖ´ÐÐ²½Öè 0:3´Î£¬1:4´Î£¬2:5´Î£¬3:6´Î */
+        volatile unsigned int TXDCN      : 2; /**< TX DC ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Ö´ï¿½Ð²ï¿½ï¿½ï¿½ 0:3ï¿½Î£ï¿½1:4ï¿½Î£ï¿½2:5ï¿½Î£ï¿½3:6ï¿½ï¿½ */
         volatile unsigned int STRXADC    : 2; /**< RX ADC Settling time 0:100us;1:200us;2:300us;3:400us */
         volatile unsigned int STSARADC   : 2; /**< SAR ADC Settling time 0:0.5us;1:1us;2:1.5us;3:2us */
         volatile unsigned int TSSIRD     : 8; /**< TSSI Value. Just valid during tssi_cal_en assert */
-        volatile unsigned int AGCPGARD   : 4; /**< AGCµÄPGA½á¹û */
-        volatile unsigned int AGCBUFRD   : 1; /**< AGCµÄBUF½á¹û */
-        volatile unsigned int AGCLNARD   : 2; /**< AGCµÄLNA½á¹û */
-        volatile unsigned int AGCMAPMODE : 1; /**< 0£ºÓ³Éä·½Ê½Ò»;1£ºÓ³Éä·½Ê½¶þ */
+        volatile unsigned int AGCPGARD   : 4; /**< AGCï¿½ï¿½PGAï¿½ï¿½ï¿½ */
+        volatile unsigned int AGCBUFRD   : 1; /**< AGCï¿½ï¿½BUFï¿½ï¿½ï¿½ */
+        volatile unsigned int AGCLNARD   : 2; /**< AGCï¿½ï¿½LNAï¿½ï¿½ï¿½ */
+        volatile unsigned int AGCMAPMODE : 1; /**< 0ï¿½ï¿½Ó³ï¿½ä·½Ê½Ò»;1ï¿½ï¿½Ó³ï¿½ä·½Ê½ï¿½ï¿½ */
     } bits;
     volatile unsigned int value;
 } BK7011_RC_BEKEN_REG0x54_TypeDef;
@@ -1238,18 +1238,18 @@ typedef union
 {
     struct
     {
-        volatile unsigned int acoef80       : 9; /**< Êý×ÖÂË²¨Æ÷»ý·ÖÖ§Â·µÄÏµÊý */
-        volatile unsigned int bcoef20       : 3; /**< Êý×ÖÂË²¨Æ÷propotionalÖ§Â·µÄÏµÊý */
-        volatile unsigned int bckphoffset50 : 6; /**< ÔÚPDµÄÊäÈë¶Ëµ÷ÕûdivÊ±ÖÓµÄÑÓ³Ù */
-        volatile unsigned int rckphoffset50 : 6; /**< ÔÚPDµÄÊäÈë¶Ëµ÷ÕûrefÊ±ÖÓµÄÑÓ³Ù */
-        volatile unsigned int bypass52M     : 1; /**< bypass 52MµÄÊ±ÖÓ£¬Êä³ö26MµÄÊ±ÖÓ */
-        volatile unsigned int tst2xpden     : 1; /**< Ñ¡Ôñ²âÊÔÒªÊä³öµÄÐÅºÅ£¬1ÎªPDµÄÊä³ö£¬0Îª52MµÄÊ±ÖÓ */
-        volatile unsigned int tst2xen       : 1; /**< Ê¹ÄÜ²âÊÔÊä³ö */
-        volatile unsigned int calspitrig    : 1; /**< Í¨¹ý¼Ä´æÆ÷´¥·¢ÆµÂÊµÄÐ£×¼£¬´¥·¢µÄÊ±ºò£¬ÏÈÐ´Îª0£¬ÔÙÐ´Îª1 */
-        volatile unsigned int bypassdmsb    : 1; /**< Êý×ÖÂË²¨Æ÷¹¤×÷µÄÊ±ºò£¬bypassµôDmsbÖ§Â· */
-        volatile unsigned int manual        : 1; /**< ¶ÔDmsbºÍDlsb¸ÄÎªÊÖ¶¯ */
-        volatile unsigned int frecalbypass  : 1; /**< bypass µôÆµÂÊµÄ×Ô¶¯Ð£×¼¹¦ÄÜ£¬¸ÄÓÃÊÖ¶¯ */
-        volatile unsigned int rstnspi       : 1; /**< Í¨¹ý¼Ä´æÆ÷reset */
+        volatile unsigned int acoef80       : 9; /**< ï¿½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö§Â·ï¿½ï¿½Ïµï¿½ï¿½ */
+        volatile unsigned int bcoef20       : 3; /**< ï¿½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½propotionalÖ§Â·ï¿½ï¿½Ïµï¿½ï¿½ */
+        volatile unsigned int bckphoffset50 : 6; /**< ï¿½ï¿½PDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½divÊ±ï¿½Óµï¿½ï¿½Ó³ï¿½ */
+        volatile unsigned int rckphoffset50 : 6; /**< ï¿½ï¿½PDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½refÊ±ï¿½Óµï¿½ï¿½Ó³ï¿½ */
+        volatile unsigned int bypass52M     : 1; /**< bypass 52Mï¿½ï¿½Ê±ï¿½Ó£ï¿½ï¿½ï¿½ï¿½26Mï¿½ï¿½Ê±ï¿½ï¿½ */
+        volatile unsigned int tst2xpden     : 1; /**< Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÅºÅ£ï¿½1ÎªPDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0Îª52Mï¿½ï¿½Ê±ï¿½ï¿½ */
+        volatile unsigned int tst2xen       : 1; /**< Ê¹ï¿½Ü²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+        volatile unsigned int calspitrig    : 1; /**< Í¨ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½Êµï¿½Ð£×¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ð´Îª0ï¿½ï¿½ï¿½ï¿½Ð´Îª1 */
+        volatile unsigned int bypassdmsb    : 1; /**< ï¿½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½bypassï¿½ï¿½DmsbÖ§Â· */
+        volatile unsigned int manual        : 1; /**< ï¿½ï¿½Dmsbï¿½ï¿½Dlsbï¿½ï¿½Îªï¿½Ö¶ï¿½ */
+        volatile unsigned int frecalbypass  : 1; /**< bypass ï¿½ï¿½Æµï¿½Êµï¿½ï¿½Ô¶ï¿½Ð£×¼ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¶ï¿½ */
+        volatile unsigned int rstnspi       : 1; /**< Í¨ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½reset */
     } bits;
     volatile unsigned int value;
 } BK7011_TRxV2A_REG0x1_TypeDef;
@@ -1259,13 +1259,13 @@ typedef union
 {
     struct
     {
-        volatile unsigned int arbpden        : 1;  /**< Í¨¹ý¼Ä´æÆ÷Ê¹ÄÜarbiter BBPD */
-        volatile unsigned int endoubler      : 1;  /**< Í¨¹ý¼Ä´æÆ÷Ê¹ÄÜdoubler */
-        volatile unsigned int trackenspi     : 1;  /**< Í¨¹ý¼Ä´æÆ÷Ê¹ÄÜ¿ª»·Ëã·¨ */
-        volatile unsigned int Dcal80         : 9;  /**< Í¨¹ý¼Ä´æÆ÷ÊÖ¶¯¿ØÖÆÕñµ´Æ÷µÄDcal */
-        volatile unsigned int Dmsbspi20      : 3;  /**< Í¨¹ý¼Ä´æÆ÷ÊÖ¶¯¿ØÖÆÕñµ´Æ÷µÄDmsb */
-        volatile unsigned int Dlsbspi40      : 5;  /**< Í¨¹ý¼Ä´æÆ÷ÊÖ¶¯¿ØÖÆÕñµ´Æ÷µÄDlsb */
-        volatile unsigned int updatecycle110 : 12; /**< ²ÉÓÃ¿ª»·Ëã·¨µÄÊ±ºòÊý¾Ýµ÷ÕûµÄÊ±¼äÖÜÆÚ */
+        volatile unsigned int arbpden        : 1;  /**< Í¨ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½arbiter BBPD */
+        volatile unsigned int endoubler      : 1;  /**< Í¨ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½doubler */
+        volatile unsigned int trackenspi     : 1;  /**< Í¨ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½Ê¹ï¿½Ü¿ï¿½ï¿½ï¿½ï¿½ã·¨ */
+        volatile unsigned int Dcal80         : 9;  /**< Í¨ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Dcal */
+        volatile unsigned int Dmsbspi20      : 3;  /**< Í¨ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Dmsb */
+        volatile unsigned int Dlsbspi40      : 5;  /**< Í¨ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Dlsb */
+        volatile unsigned int updatecycle110 : 12; /**< ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ã·¨ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
     } bits;
     volatile unsigned int value;
 } BK7011_TRxV2A_REG0x2_TypeDef;
@@ -1275,12 +1275,12 @@ typedef union
 {
     struct
     {
-        volatile unsigned int numdn110       : 12; /**< ¿ØÖÆÏàÎ»ÖÍºóµÄ´ÎÊý */
-        volatile unsigned int numup110       : 12; /**< ¿ØÖÆÏàÎ»³¬Ç°µÄ´ÎÊý */
-        volatile unsigned int arbpddelay30   : 4;  /**< arbiter BBPDÖÐµÄdelay ¿ØÖÆ */
-        volatile unsigned int hysen          : 1;  /**< Ê¹ÄÜÏàÎ»µÄ³ÙÖÍ¹¦ÄÜ */
-        volatile unsigned int phacalbypass   : 1;  /**< ÆôÓÃÊý×ÖÂË²¨Æ÷µÄÊ±ºò£¬Ð£×¼Íê³Éºó¿ÉÒÔ²»Ê¹ÄÜÏàÎ»µÄtracking,´Ó¶ø²âÊÔÐ£×¼µÄ½á¹ûÊÇ·ñÕýÈ· */
-        volatile unsigned int f2xldovsel3v10 : 2;  /**< ¿ØÖÆLDOµÄÊä³öµçÑ¹£¬Á½¸öLDO¹²ÏíÒ»×é¿ØÖÆÎ»£¬¸Ã¿ØÖÆÎ»ÒÑ¾­¾­¹ýlevel shiftµÄ×ª»»£¬00£º1.2V£»01 10£º1.3V£»11£º1.4V */
+        volatile unsigned int numdn110       : 12; /**< ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½Íºï¿½Ä´ï¿½ï¿½ï¿½ */
+        volatile unsigned int numup110       : 12; /**< ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½Ç°ï¿½Ä´ï¿½ï¿½ï¿½ */
+        volatile unsigned int arbpddelay30   : 4;  /**< arbiter BBPDï¿½Ðµï¿½delay ï¿½ï¿½ï¿½ï¿½ */
+        volatile unsigned int hysen          : 1;  /**< Ê¹ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ä³ï¿½ï¿½Í¹ï¿½ï¿½ï¿½ */
+        volatile unsigned int phacalbypass   : 1;  /**< ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ð£×¼ï¿½ï¿½Éºï¿½ï¿½ï¿½Ô²ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½tracking,ï¿½Ó¶ï¿½ï¿½ï¿½ï¿½ï¿½Ð£×¼ï¿½Ä½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½È· */
+        volatile unsigned int f2xldovsel3v10 : 2;  /**< ï¿½ï¿½ï¿½ï¿½LDOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½LDOï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½Î»ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½level shiftï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½00ï¿½ï¿½1.2Vï¿½ï¿½01 10ï¿½ï¿½1.3Vï¿½ï¿½11ï¿½ï¿½1.4V */
     } bits;
     volatile unsigned int value;
 } BK7011_TRxV2A_REG0x3_TypeDef;
@@ -1638,7 +1638,7 @@ typedef union
 {
     struct
     {
-        volatile unsigned int txsinadtable : 11; /**< TX Sinad Table;D[0] = 0: Write I Path Table Data;D[0] = 1: Write Q Path Table Data;LSB£ºD[1] ;Both I and Q need 16 number data */
+        volatile unsigned int txsinadtable : 11; /**< TX Sinad Table;D[0] = 0: Write I Path Table Data;D[0] = 1: Write Q Path Table Data;LSBï¿½ï¿½D[1] ;Both I and Q need 16 number data */
         volatile unsigned int reserved     : 21; /**< Reserved */
     } bits;
     volatile unsigned int value;
@@ -1870,6 +1870,8 @@ typedef struct
 /*******************************************************************************
 * Function Declarations
 *******************************************************************************/
+int manual_cal_load_calimain_tag_from_flash(UINT32 tag, int *tag_addr, int tag_size);
+
 #endif // (CFG_SOC_NAME != SOC_BK7231)
 
 #endif // _BK7231U_CAL_H_

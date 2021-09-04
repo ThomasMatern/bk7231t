@@ -1149,7 +1149,7 @@ int hostapd_setup_interface_complete(struct hostapd_iface *iface, int err)
 
 	wpa_printf(MSG_DEBUG, "Completing interface initialization");
 	if (iface->conf->channel) {
-#ifdef NEED_AP_MLME
+#if defined NEED_AP_MLME && defined CONFIG_DFS
 		int res;
 #endif /* NEED_AP_MLME */
 
@@ -1294,7 +1294,7 @@ int hostapd_setup_interface_complete(struct hostapd_iface *iface, int err)
 		return res_dfs_offload;
 	}
 
-#ifdef NEED_AP_MLME
+#if definded NEED_AP_MLME && defined CONFIG_DFS
 dfs_offload:
 #endif /* NEED_AP_MLME */
 

@@ -83,6 +83,7 @@ extern "C" {
 #endif
 
 #include <stdint.h>
+#include "rtos_pub.h"
 
 /**
  * for compiling beken378 library with thumb instruction set

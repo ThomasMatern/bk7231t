@@ -24,3 +24,7 @@ typedef enum {
 
 } RESET_SOURCE_STATUS;
 
+RESET_SOURCE_STATUS bk_misc_init_start_type(void);
+RESET_SOURCE_STATUS bk_misc_get_start_type();
+void bk_misc_update_set_type(RESET_SOURCE_STATUS type);
+

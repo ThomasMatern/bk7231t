@@ -388,6 +388,7 @@ int bk_wlan_stop_monitor(void);
  */
 int bk_wlan_set_channel_sync(int channel);
 int bk_wlan_set_channel(int channel);
+int bk_wlan_get_channel(void);
 
 /** @brief  Register the monitor callback function
  *        Once received a 802.11 packet call the registered function to return the packet.
@@ -459,10 +460,11 @@ extern int bk_wlan_mcu_ps_mode_disable(void);
  */
 extern int bk_wlan_dtim_rf_ps_mode_do_wakeup();
 extern int bk_wlan_dtim_rf_ps_disable_send_msg(void);
+extern int bk_wlan_dtim_rf_ps_timer_pause(void);
 extern int bk_wlan_dtim_rf_ps_set_linger_time(UINT32 );
-
+extern int auto_check_dtim_rf_ps_mode(void);
 extern int bk_wlan_mcu_suppress_and_sleep(UINT32);
-
+extern int bk_wlan_dtim_rf_ps_timer_start(void);
 
 extern void user_callback_register(void);
 /** @brief  Enable mcu power save,close mcu ,and wakeup by irq
@@ -493,6 +495,7 @@ void bk_wlan_ap_set_default_channel(uint8_t channel);
 void bk_wlan_phy_open_cca(void);
 void bk_wlan_phy_close_cca(void);
 void bk_wlan_phy_show_cca(void);
+void bk_reboot(void);
 
 #ifdef CONFIG_AOS_MESH
 void wlan_register_mesh_monitor_cb(monitor_data_cb_t fn);
@@ -506,6 +509,7 @@ uint8_t *wlan_get_mesh_bssid(void);
 uint32_t bk_wlan_reg_rx_mgmt_cb(mgmt_rx_cb_t cb, uint32_t rx_mgmt_flag);
 uint32_t bk_wlan_start_ez_of_sta(void);
 uint32_t bk_wlan_stop_ez_of_sta(void);
+
 int bk_wlan_send_80211_raw_frame(uint8_t *buffer, int len);
 int bk_wlan_send_raw_frame_with_cb(uint8_t *buffer, int len, void *cb, void *param);
 

@@ -52,6 +52,7 @@ uint8_t appm_read_cfg_by_uuid(uint16_t uuid);
 uint8_t appm_read_user_desc_by_uuid(uint16_t uuid);
 uint8_t  sdp_enable_all_server_ntf_ind(uint8_t  reset);
 void sdp_prf_register_all_atthdl2gatt(void);
+void appm_update_adv_data( uint8_t* adv_buff, uint8_t adv_len, uint8_t* scan_buff, uint8_t scan_len);
 
 #endif
 #endif

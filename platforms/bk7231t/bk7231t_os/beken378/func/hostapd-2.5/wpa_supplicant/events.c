@@ -3195,7 +3195,9 @@ void wpa_supplicant_event_sta(void *ctx, enum wpa_event_type event,
 			  union wpa_event_data *data)
 {
 	struct wpa_supplicant *wpa_s = ctx;
+#ifdef CONFIG_FULL_SUPPLICANT
 	int resched;
+#endif
 
 	if (wpa_s->wpa_state == WPA_INTERFACE_DISABLED &&
 	    event != EVENT_INTERFACE_ENABLED &&

@@ -26,6 +26,8 @@
 #if CFG_USB
 #include "fusb_pub.h"
 #endif
+
+#include "BkDriverFlash.h"
 #include "start_type_pub.h"
 
 UINT32 func_init_extended(void)

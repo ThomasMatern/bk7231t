@@ -750,7 +750,7 @@ static int gapc_cmp_evt_handler(kernel_msg_id_t const msgid,
  ****************************************************************************************
  */
 static int gapc_disconnect_ind_handler(kernel_msg_id_t const msgid,
-                                      struct gapc_disconnect_ind const *param,
+                                      struct gapc_disconnect_ind *param,
                                       kernel_task_id_t const dest_id,
                                       kernel_task_id_t const src_id)
 {
@@ -1235,7 +1235,7 @@ static int gapc_param_updated_ind_handler (kernel_msg_id_t const msgid,
  ****************************************************************************************
  */
 static int gattc_mtu_changed_ind_handler(kernel_msg_id_t const msgid,
-                                     struct gattc_mtu_changed_ind const *ind,
+                                     struct gattc_mtu_changed_ind *ind,
                                      kernel_task_id_t const dest_id,
                                      kernel_task_id_t const src_id)
 {
@@ -1281,7 +1281,7 @@ ble_scan_list_t ble_scan_list;
 uint8_t adv_count = 0;
 
 static int gapm_adv_report_ind_handler(kernel_msg_id_t const msgid,
-                                     struct adv_report const *param,
+                                     struct adv_report *param,
                                      kernel_task_id_t const dest_id,
                                      kernel_task_id_t const src_id)
 {
@@ -1332,7 +1332,7 @@ static int gapm_adv_report_ind_handler(kernel_msg_id_t const msgid,
 }
 
 static int gapm_gen_dh_key_ind_handler(kernel_msg_id_t const msgid,
-                                            struct gapm_gen_dh_key_ind const *param,
+                                            struct gapm_gen_dh_key_ind *param,
                                             kernel_task_id_t const dest_id,
                                             kernel_task_id_t const src_id)
 {
@@ -1351,7 +1351,7 @@ static int gapm_gen_dh_key_ind_handler(kernel_msg_id_t const msgid,
 }
 
 static int gapm_get_key_ind_handler(kernel_msg_id_t const msgid,
-                                            struct gapm_get_key_ind const *param,
+                                            struct gapm_get_key_ind *param,
                                             kernel_task_id_t const dest_id,
                                             kernel_task_id_t const src_id)
 {
@@ -1385,7 +1385,7 @@ static int gapm_get_key_ind_handler(kernel_msg_id_t const msgid,
  ****************************************************************************************
  */
 static int gapc_param_update_req_ind_handler(kernel_msg_id_t const msgid,
-                                struct gapc_param_update_req_ind const *param,
+                                struct gapc_param_update_req_ind *param,
                                 kernel_task_id_t const dest_id,
                                 kernel_task_id_t const src_id)
 {

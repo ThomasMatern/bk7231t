@@ -3022,8 +3022,8 @@ struct wpa_driver_ops {
 	 * still present. This function does not need to be implemented if the
 	 * driver provides such inactivity polling mechanism.
 	 */
-	void (*poll_client)(void *priv, const u8 *own_addr,
-			    const u8 *addr, int qos);
+	void (*poll_client)(void *priv, u8 *own_addr,
+			    u8 *addr, int qos);
 
 	/**
 	 * radio_disable - Disable/enable radio

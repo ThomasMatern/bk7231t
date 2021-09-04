@@ -75,6 +75,8 @@ void app_start(void);
 void app_pre_start(void);
 int bmsg_is_empty(void);
 void core_thread_uninit(void);
+int bmsg_ps_handler_rf_ps_mode_real_wakeup(void);
+int bmsg_tx_raw_cb_sender(uint8_t *buffer, int length, void *cb, void *param);
 
 #endif // _APP_H_
 // eof

@@ -15,6 +15,7 @@
 #include "ethernetif.h"
 #include "sa_station.h"
 #include "drv_model_pub.h"
+#include "net.h"
 #include "mem_pub.h"
 #include "common.h"
 #include "rw_pub.h"
@@ -383,7 +384,7 @@ void sta_ip_down(void)
 
 void sta_ip_start(void)
 {
-    struct wlan_ip_config address = {0};
+    struct wlan_ip_config address = {{0}};
 
     if(!sta_ip_start_flag)
     {
@@ -770,7 +771,7 @@ void net_wlan_add_netif(void *mac)
         return ;
     }
 
-	if (netif_is_added(wlan_if)) {
+	if (netif_is_added((struct netif*)wlan_if)) {
     	os_printf("net_wlan_add_netif already added done!, vif_idx:%d\r\n", vif_idx);
 		return;
 	}

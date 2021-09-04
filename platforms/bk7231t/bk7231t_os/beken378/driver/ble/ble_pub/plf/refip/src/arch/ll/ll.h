@@ -32,7 +32,7 @@
 /* keil Compiler intrinsics for controlling IRQ and FIQ interrupts
 */
  
- 
+#undef GLOBAL_INT_START
 #define GLOBAL_INT_START(); \
 do { \
 	portENABLE_FIQ(); \
@@ -43,7 +43,7 @@ do { \
  * This macro must be used when the system wants to disable all the interrupt
  * it could handle.
  */
-
+#undef GLOBAL_INT_STOP
 #define GLOBAL_INT_STOP();		\
 do { \
 						portDISABLE_FIQ(); \

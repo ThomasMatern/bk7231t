@@ -24,7 +24,7 @@ typedef struct
 
 STATIC GPIO_TEST_TABLE gpio_test_table = {
     .group_num = 0,
-    .group = {0}
+    .group = {{0}}
 };
 
 BOOL_T gpio_test_spcl_cb(UINT_T idx)

@@ -12,6 +12,7 @@
 #include "include.h"
 #include "driver_pub.h"
 #include "func_pub.h"
+#include "start_type_pub.h"
 #include "app.h"
 #include "ate_app.h"
 

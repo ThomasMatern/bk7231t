@@ -8,10 +8,15 @@
 #include "mf_test.h"
 #include "tuya_uart.h"
 #include "tuya_gpio.h"
+#include "tuya_ble_port.h"
+#include "tuya_hal_storge.h"
 #include "gw_intf.h"
 #include "wf_basic_intf.h"
 #include "BkDriverUart.h"
 #include "uni_log.h"
+#include "tuya_main.h"
+#include "ws_db_gw.h"
+#include "application.h"
 
 /***********************************************************
 *************************micro define***********************
@@ -49,7 +54,6 @@ typedef struct {
     UG_STAT_E stat;
 }UG_PROC_S;
 
-typedef VOID (*APP_PROD_CB)(BOOL_T flag, CHAR_T rssi);
 typedef VOID (*after_mf_test_cb)(VOID);
 typedef VOID (*SET_OTA_FINISH_NOTIFY)(VOID);
 STATIC APP_PROD_CB app_prod_test = NULL;
@@ -101,6 +105,9 @@ STATIC UINT_T __tuya_mf_recv(OUT BYTE_T *buf,IN CONST UINT_T len)
     return ty_uart_read_data(TY_UART,buf,len);
 }
 extern OPERATE_RET gw_cfg_flash_reset_fac(VOID);
+extern BOOL_T wd_mf_test_close_if_read(VOID);
+
+
 STATIC BOOL_T scan_test_ssid(VOID)
 {
     BOOL_T mf_close;
@@ -417,7 +424,7 @@ STATIC VOID __gw_ug_inform_cb(INOUT BOOL_T *handled, IN CONST FW_UG_S *fw)
 OPERATE_RET __mf_gw_upgrade_notify_cb(VOID)
 {
 	#if 1
-    u32 ret = 0,i = 0,k = 0,rlen = 0,addr = 0;
+    u32 i = 0,k = 0,rlen = 0,addr = 0;
     u32 flash_checksum=0;
     u8 *pTempbuf;
     pTempbuf = Malloc(BUF_SIZE);
@@ -458,7 +465,7 @@ STATIC VOID __gw_upgrade_notify_cb(IN CONST FW_UG_S *fw, IN CONST INT_T download
 {
     if(OPRT_OK == download_result) { // update success
         // verify 
-        u32 ret = 0,i = 0,k = 0,rlen = 0,addr = 0;
+        u32 i = 0,k = 0,rlen = 0,addr = 0;
         u32 flash_checksum=0;
         u8 *pTempbuf;
         pTempbuf = Malloc(BUF_SIZE);

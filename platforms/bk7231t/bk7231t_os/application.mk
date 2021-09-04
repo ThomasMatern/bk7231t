@@ -4,6 +4,13 @@ TOP_DIR = ../../..
 # -------------------------------------------------------------------
 ifeq ($(shell uname), Linux)
   TOOLCHAIN_DIR := ../toolchain
+  GENERATE_DIR := tools/generate
+  PACKAGE_TOOL_DIR := package_tool/linux
+  OTAFIX := ${PACKAGE_TOOL_DIR}/otafix
+  ENCRYPT := ${PACKAGE_TOOL_DIR}/encrypt
+  BEKEN_PACK := ${PACKAGE_TOOL_DIR}/beken_packager
+  RT_OTA_PACK_TOOL := ${PACKAGE_TOOL_DIR}/rt_ota_packaging_tool_cli
+  TY_PACKAGE := ${PACKAGE_TOOL_DIR}/package
 else
   TOOLCHAIN_DIR := ../toolchain/windows
 endif
@@ -29,10 +36,13 @@ OBJDUMP = $(CROSS_COMPILE)objdump
 
 all: application 
 
-TARGET=Debug
+TARGET=Release
 
 OBJ_DIR=$(TARGET)/obj
+$(shell mkdir -p $(OBJ_DIR))
+
 BIN_DIR=$(TARGET)/bin
+$(shell mkdir -p $(BIN_DIR))
 
 # -------------------------------------------------------------------
 # Include folder list
@@ -556,10 +566,10 @@ DEPENDENCY_OS_LIST = $(addprefix $(OBJ_DIR)/,$(patsubst %.c,%.d,$(SRC_OS_LIST)))
 
 # Compile options
 # -------------------------------------------------------------------
-CFLAGS =
+CFLAGS = -Werror
 CFLAGS += -g -mthumb -mcpu=arm968e-s -march=armv5te -mthumb-interwork -mlittle-endian -Os -std=c99 -ffunction-sections -Wall -fsigned-char -fdata-sections -Wunknown-pragmas -nostdlib -Wno-unused-function -Wno-unused-but-set-variable
 
-OSFLAGS =
+OSFLAGS = -Werror
 OSFLAGS += -g -marm -mcpu=arm968e-s -march=armv5te -mthumb-interwork -mlittle-endian -Os -std=c99 -ffunction-sections -Wall -fsigned-char -fdata-sections -Wunknown-pragmas
 
 ASMFLAGS = 
@@ -596,6 +606,7 @@ endif
 # add tuya iot application compile support
 # -------------------------------------------------------------------
 TY_OUTPUT = $(TOP_DIR)/apps/$(APP_BIN_NAME)/output/$(APP_VERSION)
+$(shell mkdir -p $(TY_OUTPUT))
 
 TY_SRC_DIRS += $(shell find ../tuya_common/src -type d)
 TY_SRC_DIRS += $(shell find $(TOP_DIR)/apps/$(APP_BIN_NAME)/src -type d)
@@ -624,52 +635,64 @@ $(TY_OBJS): %.o : %.c
 	@chmod 777 $(OBJ_DIR)/$(notdir $@)
 
 sinclude $(TY_DEPENDENCY_LIST)
-
+APP_BASE = $(TY_OUTPUT)/$(APP_BIN_NAME)_$(APP_VERSION)
+UA_BIN = ${APP_BIN_NAME}_UA_${APP_VERSION}.bin
 CUR_PATH = $(shell pwd)	
 .PHONY: application
-application: prerequirement $(SRC_O) $(SRC_S_O) $(SRC_OS_O) $(TY_IOT_LIB)
+application: $(TY_OUTPUT)/${UA_BIN}
+
+$(TY_OUTPUT)/${UA_BIN}: $(APP_BASE).map $(APP_BASE).asm $(APP_BASE).bin
+	@cd ${GENERATE_DIR};./${OTAFIX} ../../${APP_BASE}.bin
+	@cd ${GENERATE_DIR};./${ENCRYPT} ../../${APP_BASE}.bin 510fb093 a3cbeadc 5993a17e c7adeb03 10000 > /dev/null
+	@cd ${GENERATE_DIR}; python mpytools.py ../../${APP_BASE}_enc.bin
+	@cd ${GENERATE_DIR};./${BEKEN_PACK} config.json > /dev/null
+	@mv ${GENERATE_DIR}/all_1.00.bin $(TY_OUTPUT)/${APP_BIN_NAME}_QIO_${APP_VERSION}.bin
+	@mv ${GENERATE_DIR}/${APP_BIN_NAME}_${APP_VERSION}_enc_uart_1.00.bin $(TY_OUTPUT)/${UA_BIN}
+	@cp $(TY_OUTPUT)/${UA_BIN} /media/sf_Downloads/tuya
+
+$(APP_BASE).bin: %.bin: %.axf
+	@echo "$(notdir $<) --> $(notdir $@)"  
+	@$(OBJCOPY) -O binary $< $@
+
+
+$(APP_BASE).asm: %.asm : %.axf
+	@echo "$(notdir $<) --> $(notdir $@)"
+	@$(OBJDUMP) -d $< > $@
+	
+$(APP_BASE).map: %.map : %.axf
+	@echo "$(notdir $<) --> $(notdir $@)"
+	@$(NM) $< | sort > $@
+
+
+$(APP_BASE).axf: $(SRC_O) $(SRC_S_O) $(SRC_OS_O)
 ifeq ("${ota_idx}", "1")
-	$(LD) $(LFLAGS) -o $(TY_OUTPUT)/$(APP_BIN_NAME)_$(APP_VERSION).axf  $(OBJ_LIST) $(OBJ_S_LIST) $(OBJ_OS_LIST) $(LIBFLAGS) -T./beken378/build/bk7231_ota.ld
+	@echo "$(notdir $<) --> $(notdir $@)"
+	@$(LD) $(LFLAGS) -o $@  $(OBJ_LIST) $(OBJ_S_LIST) $(OBJ_OS_LIST) $(LIBFLAGS) -T./beken378/build/bk7231_ota.ld
 else ifeq ("${ota_idx}", "2")
 else
 	@echo ===========================================================
 	@echo ota_idx must be "1" or "2"
 	@echo ===========================================================
 endif
-
-	$(NM) $(TY_OUTPUT)/$(APP_BIN_NAME)_$(APP_VERSION).axf | sort > $(TY_OUTPUT)/$(APP_BIN_NAME)_$(APP_VERSION).map
-	$(OBJDUMP) -d $(TY_OUTPUT)/$(APP_BIN_NAME)_$(APP_VERSION).axf > $(TY_OUTPUT)/$(APP_BIN_NAME)_$(APP_VERSION).asm
-	$(OBJCOPY) -O binary $(TY_OUTPUT)/$(APP_BIN_NAME)_$(APP_VERSION).axf $(TY_OUTPUT)/$(APP_BIN_NAME)_$(APP_VERSION).bin
-# Generate build info
-# -------------------------------------------------------------------	
-
-.PHONY: prerequirement
-prerequirement:
-	echo prerequirement0
-	@echo ===========================================================
-	@echo Build $(APP_BIN_NAME)
-	@echo ===========================================================
-	echo prerequirement1
-	mkdir -p $(OBJ_DIR)
-	mkdir -p $(BIN_DIR)
-	echo prerequirement2
 	
-	@# add tuya bin output
-	@mkdir -p $(TY_OUTPUT)
+
 
 $(SRC_O): %.o : %.c
+	@echo $<
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -MM -MT $@ -MF $(OBJ_DIR)/$(notdir $(patsubst %.o,%.d,$@))
 	@cp $@ $(OBJ_DIR)/$(notdir $@)
 	@chmod 777 $(OBJ_DIR)/$(notdir $@)
 
 $(SRC_S_O): %.o : %.S
+	@echo $<
 	@$(CC) $(ASMFLAGS) $(INCLUDES) -c $< -o $@
 	@$(CC) $(ASMFLAGS) $(INCLUDES) -c $< -MM -MT $@ -MF $(OBJ_DIR)/$(notdir $(patsubst %.o,%.d,$@))
 	@cp $@ $(OBJ_DIR)/$(notdir $@)
 	@chmod 777 $(OBJ_DIR)/$(notdir $@)
 
 $(SRC_OS_O): %.o : %.c
+	@echo $<
 	@$(CC) $(OSFLAGS) $(INCLUDES) -c $< -o $@
 	@$(CC) $(OSFLAGS) $(INCLUDES) -c $< -MM -MT $@ -MF $(OBJ_DIR)/$(notdir $(patsubst %.o,%.d,$@))
 	@cp $@ $(OBJ_DIR)/$(notdir $@)
@@ -700,11 +723,11 @@ endif
 
 .PHONY: clean
 clean:
-	rm -rf $(TARGET)
-	rm -f $(SRC_O)
-	rm -f $(SRC_S_O)
-	rm -f $(SRC_OS_O)
-	rm -rf $(TY_OBJS)
-	rm -f $(TY_IOT_LIB)
-	rm -rf $(TY_OUTPUT)
+	@rm -rf $(TARGET)
+	@rm -f $(SRC_O)
+	@rm -f $(SRC_S_O)
+	@rm -f $(SRC_OS_O)
+	@rm -rf $(TY_OBJS)
+	@rm -f $(TY_IOT_LIB)
+	@rm -rf $(TY_OUTPUT)
 	

@@ -504,7 +504,7 @@ typedef void (*WIFI_REV_MGNT_CB)(uint8_t *buf, int buf_len);
  * @param[in]       len         length of buffer
  * @return  OPRT_OK: success  Other: fail
  */
-int tuya_hal_wifi_send_mgnt(const uint8_t *buf, const uint32_t len);
+int tuya_hal_wifi_send_mgnt(uint8_t *buf, const uint32_t len);
 
 /**
  * @brief register receive wifi management callback

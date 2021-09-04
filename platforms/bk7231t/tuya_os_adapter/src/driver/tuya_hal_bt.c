@@ -8,9 +8,11 @@
 #include "ble_pub.h"
 #include "uart_pub.h"
 #include "app_task.h"
+#include "app_sdp.h"
 #include "mcu_ps_pub.h"
 #include "application.h"
 #include "tuya_ble_type.h"
+#include "tuya_ble_port.h"
 #include "tuya_hal_bt.h"
 #include "tuya_hal_wifi.h"
 #include "uni_log.h"
@@ -65,7 +67,8 @@ uint8_t ble_read_callback(read_req_t *read_req)
 {
     if(read_req->att_idx == 5)
     {
-        read_req->value = ntf_enable;
+        read_req->value[0] = ntf_enable & 0xFF;
+        read_req->value[1] = (ntf_enable >> 8) & 0xFF;
     }
     return 2;
 }
@@ -90,6 +93,7 @@ void ble_event_callback(ble_event_t event, void *param)
             bk_ble_create_db(&ble_db_cfg);
         }
         break;
+
         case BLE_STACK_FAIL:
             bk_printf("STACK INIT FAIL\r\n");
         break;
