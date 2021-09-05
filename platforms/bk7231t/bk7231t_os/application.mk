@@ -2,12 +2,11 @@ TOP_DIR = ../../..
 
 # Initialize tool chain  /usr/bin/gcc-arm-none-eabi-4_9-2015q1/bin
 # -------------------------------------------------------------------
-TOOLCHAIN_DIR := ../toolchain
-GENERATE_DIR := tools/generate
-PACKAGE_TOOL_DIR := package_tool
-ENCRYPT := ${PACKAGE_TOOL_DIR}/encrypt
-BEKEN_PACK := ${PACKAGE_TOOL_DIR}/beken_packager
-TY_PACKAGE := ${PACKAGE_TOOL_DIR}/package
+TOOLCHAIN_DIR = ../toolchain
+GENERATE_DIR = tools/generate
+PACKAGE_TOOL_DIR = package_tool
+ENCRYPT = ${PACKAGE_TOOL_DIR}/encrypt
+BEKEN_PACK = ${PACKAGE_TOOL_DIR}/beken_packager
 ARM_GCC_TOOLCHAIN = $(TOOLCHAIN_DIR)/gcc-arm-none-eabi-4_9-2015q1/bin
 CROSS_COMPILE = $(ARM_GCC_TOOLCHAIN)/arm-none-eabi-
 
@@ -24,16 +23,18 @@ OBJDUMP = $(CROSS_COMPILE)objdump
 # -------------------------------------------------------------------
 # Initialize target name and target object files
 # -------------------------------------------------------------------
+APP_DIR = $(TOP_DIR)/apps/$(APP_NAME)
 
-all: application 
-
+ifeq ("$(wildcard $(APP_DIR))", "")
+$(error Unknown app "$(APP_NAME)")
+endif
+ 
 TARGET=Release
+OUTPUT=$(APP_DIR)/output/$(APP_VERSION)/$(TARGET)
+OBJ_DIR=$(OUTPUT)/obj
 
-OBJ_DIR=$(TARGET)/obj
 $(shell mkdir -p $(OBJ_DIR))
 
-BIN_DIR=$(TARGET)/bin
-$(shell mkdir -p $(BIN_DIR))
 
 # -------------------------------------------------------------------
 # Include folder list
@@ -433,60 +434,43 @@ ASMFLAGS =
 ASMFLAGS += -g -marm -mthumb-interwork -mcpu=arm968e-s -march=armv5te -x assembler-with-cpp
 
 LFLAGS = 
-LFLAGS += -g -Wl,--gc-sections -marm -mcpu=arm968e-s -mthumb-interwork -nostdlib -Xlinker -Map=tuya.map  -Wl,-wrap,malloc -Wl,-wrap,free  -Wl,-wrap,zalloc
+LFLAGS += -g -Wl,--gc-sections -marm -mcpu=arm968e-s -mthumb-interwork -nostdlib -Xlinker -Map=$(OUTPUT)/$(APP_NAME).map  -Wl,-wrap,malloc -Wl,-wrap,free -Wl,-wrap,zalloc
 
 LIBFLAGS =
 LIBFLAGS += -L./beken378/lib/ -lrwnx
 LIBFLAGS += -L./beken378/lib/ -lble
 
 # Compile
-# -------------------------------------------------------------------
-# add tuya iot lib compile support
-# -------------------------------------------------------------------
 
-# LIBFLAGS += -L $(TOP_DIR)/sdk/lib/ -ltuya_iot
-# CFLAGS += -DUSER_SW_VER=\"$(USER_SW_VER)\" -DAPP_BIN_NAME=\"$(APP_BIN_NAME)\"
+APP_SRC_DIRS += $(shell find $(TOP_DIR)/apps/$(APP_NAME)/src -type d)
 
-# -------------------------------------------------------------------
-# add tuya iot application compile support
-# -------------------------------------------------------------------
-TY_OUTPUT = $(TOP_DIR)/apps/$(APP_BIN_NAME)/output/$(APP_VERSION)
-$(shell mkdir -p $(TY_OUTPUT))
+SRC_C += $(foreach dir, $(APP_SRC_DIRS), $(wildcard $(dir)/*.c)) # need export
+SRC_C += $(foreach dir, $(APP_SRC_DIRS), $(wildcard $(dir)/*.cpp)) 
+SRC_C += $(foreach dir, $(APP_SRC_DIRS), $(wildcard $(dir)/*.s)) 
+SRC_C += $(foreach dir, $(APP_SRC_DIRS), $(wildcard $(dir)/*.S)) 
 
-#TY_SRC_DIRS += $(shell find ../tuya_common/src -type d)
-TY_SRC_DIRS += $(shell find $(TOP_DIR)/apps/$(APP_BIN_NAME)/src -type d)
-#TY_SRC_DIRS += $(shell find ../tuya_os_adapter/src -type d)
+APP_INC_DIRS += $(shell find $(TOP_DIR)/apps/$(APP_NAME)/include -type d)
 
-SRC_C += $(foreach dir, $(TY_SRC_DIRS), $(wildcard $(dir)/*.c)) # need export
-SRC_C += $(foreach dir, $(TY_SRC_DIRS), $(wildcard $(dir)/*.cpp)) 
-SRC_C += $(foreach dir, $(TY_SRC_DIRS), $(wildcard $(dir)/*.s)) 
-SRC_C += $(foreach dir, $(TY_SRC_DIRS), $(wildcard $(dir)/*.S)) 
+INCLUDES += $(foreach base_dir, $(APP_INC_DIRS), $(addprefix -I , $(base_dir))) 
 
-#TY_INC_DIRS += $(shell find $(TOP_DIR)/sdk -type d)
-#SDK_INCLUDE_DIRS := $(shell find $(TOP_DIR)/sdk -name include -type d)
-#TY_INC_DIRS += $(foreach dir,$(SDK_INCLUDE_DIRS),$(shell find $(dir) -type d))
-
-#TY_INC_DIRS += $(shell find ../tuya_os_adapter/include -type d)
-#TY_INC_DIRS += $(shell find ../tuya_common/include -type d)
-TY_INC_DIRS += $(shell find $(TOP_DIR)/apps/$(APP_BIN_NAME)/include -type d)
-
-INCLUDES += $(foreach base_dir, $(TY_INC_DIRS), $(addprefix -I , $(base_dir))) 
-
-APP_BASE = $(TY_OUTPUT)/$(APP_BIN_NAME)_$(APP_VERSION)
-UA_BIN = ${APP_BIN_NAME}_UA_${APP_VERSION}.bin
+APP_BASE = $(OUTPUT)/$(APP_NAME)_$(APP_VERSION)
+UA_BIN = ${APP_NAME}_UA_${APP_VERSION}.bin
 CUR_PATH = $(shell pwd)	
 
-.PHONY: application
-application: $(TY_OUTPUT)/${UA_BIN}
+.PHONY: app
+app: ua_bin
 
-$(TY_OUTPUT)/${UA_BIN}: $(APP_BASE).map $(APP_BASE).asm $(APP_BASE).bin ${GENERATE_DIR}/mpytools.py
+ua_bin: $(OUTPUT)/${UA_BIN}
+	@:
+
+$(OUTPUT)/${UA_BIN}: $(APP_BASE).map $(APP_BASE).asm $(APP_BASE).bin ${GENERATE_DIR}/mpytools.py
 	@echo "CRC $(notdir $@)"  
 	@cd ${GENERATE_DIR};./${ENCRYPT} ../../${APP_BASE}.bin 510fb093 a3cbeadc 5993a17e c7adeb03 10000 >/dev/null
 	@cd ${GENERATE_DIR}; python mpytools.py ../../${APP_BASE}_enc.bin ${APP_VERSION}
 	@cd ${GENERATE_DIR};./${BEKEN_PACK} config.json >/dev/null
-	@mv ${GENERATE_DIR}/all_${APP_VERSION}.bin $(TY_OUTPUT)/${APP_BIN_NAME}_QIO_${APP_VERSION}.bin
-	@mv ${GENERATE_DIR}/${APP_BIN_NAME}_${APP_VERSION}_enc_uart_${APP_VERSION}.bin $(TY_OUTPUT)/${UA_BIN}
-	@cp $(TY_OUTPUT)/${UA_BIN} /media/sf_Downloads/tuya
+	@mv ${GENERATE_DIR}/all_${APP_VERSION}.bin $(OUTPUT)/${APP_NAME}_QIO_${APP_VERSION}.bin
+	@mv ${GENERATE_DIR}/${APP_NAME}_${APP_VERSION}_enc_uart_${APP_VERSION}.bin $(OUTPUT)/${UA_BIN}
+	@cp $(OUTPUT)/${UA_BIN} /media/sf_Downloads/tuya
 
 $(APP_BASE).bin: %.bin: %.axf
 	@echo "DUMP $(notdir $@)"
@@ -536,6 +520,5 @@ clean:
 	@rm -f $(SRC_O)
 	@rm -f $(SRC_S_O)
 	@rm -f $(SRC_OS_O)
-	@rm -f $(TY_IOT_LIB)
-	@rm -rf $(TY_OUTPUT)
-	
+	@rm -rf $(OUTPUT)
+

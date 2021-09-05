@@ -1,0 +1,3 @@
+[submodule "apps/Tasmota"]
+	path = apps/Tasmota
+	url = git@github.com:ThomasMatern/Tasmota.git

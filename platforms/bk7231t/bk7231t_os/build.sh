@@ -1,8 +1,0 @@
-#!/bin/sh
-APP_BIN_NAME=$1
-APP_VERSION=$2
-USER_CMD=$3
-USER_SW_VER=`echo $APP_VERSION | cut -d'-' -f1`
-
-make APP_BIN_NAME=$APP_BIN_NAME USER_SW_VER=$USER_SW_VER APP_VERSION=$APP_VERSION $USER_CMD -C ./ -j --no-print-directory
-
