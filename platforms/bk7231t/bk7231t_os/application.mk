@@ -2,23 +2,14 @@ TOP_DIR = ../../..
 
 # Initialize tool chain  /usr/bin/gcc-arm-none-eabi-4_9-2015q1/bin
 # -------------------------------------------------------------------
-ifeq ($(shell uname), Linux)
-  TOOLCHAIN_DIR := ../toolchain
-  GENERATE_DIR := tools/generate
-  PACKAGE_TOOL_DIR := package_tool/linux
-  OTAFIX := ${PACKAGE_TOOL_DIR}/otafix
-  ENCRYPT := ${PACKAGE_TOOL_DIR}/encrypt
-  BEKEN_PACK := ${PACKAGE_TOOL_DIR}/beken_packager
-  RT_OTA_PACK_TOOL := ${PACKAGE_TOOL_DIR}/rt_ota_packaging_tool_cli
-  TY_PACKAGE := ${PACKAGE_TOOL_DIR}/package
-else
-  TOOLCHAIN_DIR := ../toolchain/windows
-endif
+TOOLCHAIN_DIR := ../toolchain
+GENERATE_DIR := tools/generate
+PACKAGE_TOOL_DIR := package_tool
+ENCRYPT := ${PACKAGE_TOOL_DIR}/encrypt
+BEKEN_PACK := ${PACKAGE_TOOL_DIR}/beken_packager
+TY_PACKAGE := ${PACKAGE_TOOL_DIR}/package
 ARM_GCC_TOOLCHAIN = $(TOOLCHAIN_DIR)/gcc-arm-none-eabi-4_9-2015q1/bin
-
 CROSS_COMPILE = $(ARM_GCC_TOOLCHAIN)/arm-none-eabi-
-
-ota_idx = 1
 
 # Compilation tools
 AR = $(CROSS_COMPILE)ar
@@ -395,138 +386,6 @@ SRC_C += ./beken378/func/wlan_ui/wlan_cli.c
 SRC_C += ./beken378/func/wlan_ui/wlan_ui.c
 SRC_C += ./beken378/func/tuya_pwm/tuya_pwm.c
 
-#rwnx ip module
-#SRC_C += ./beken378/ip/common/co_dlist.c
-#SRC_C += ./beken378/ip/common/co_list.c
-#SRC_C += ./beken378/ip/common/co_math.c
-#SRC_C += ./beken378/ip/common/co_pool.c
-#SRC_C += ./beken378/ip/common/co_ring.c
-#SRC_C += ./beken378/ip/ke/ke_env.c
-#SRC_C += ./beken378/ip/ke/ke_event.c
-#SRC_C += ./beken378/ip/ke/ke_msg.c
-#SRC_C += ./beken378/ip/ke/ke_queue.c
-#SRC_C += ./beken378/ip/ke/ke_task.c
-#SRC_C += ./beken378/ip/ke/ke_timer.c
-#SRC_C += ./beken378/ip/lmac/src/chan/chan.c
-#SRC_C += ./beken378/ip/lmac/src/hal/hal_desc.c
-#SRC_C += ./beken378/ip/lmac/src/hal/hal_dma.c
-#SRC_C += ./beken378/ip/lmac/src/hal/hal_machw.c
-#SRC_C += ./beken378/ip/lmac/src/hal/hal_mib.c
-#SRC_C += ./beken378/ip/lmac/src/mm/mm.c
-#SRC_C += ./beken378/ip/lmac/src/mm/mm_bcn.c
-#SRC_C += ./beken378/ip/lmac/src/mm/mm_task.c
-#SRC_C += ./beken378/ip/lmac/src/mm/mm_timer.c
-#SRC_C += ./beken378/ip/lmac/src/p2p/p2p.c
-#SRC_C += ./beken378/ip/lmac/src/ps/ps.c
-#SRC_C += ./beken378/ip/lmac/src/rd/rd.c
-#SRC_C += ./beken378/ip/lmac/src/rwnx/rwnx.c
-#SRC_C += ./beken378/ip/lmac/src/rx/rx_swdesc.c
-#SRC_C += ./beken378/ip/lmac/src/rx/rxl/rxl_cntrl.c
-#SRC_C += ./beken378/ip/lmac/src/rx/rxl/rxl_hwdesc.c
-#SRC_C += ./beken378/ip/lmac/src/scan/scan.c
-#SRC_C += ./beken378/ip/lmac/src/scan/scan_shared.c
-#SRC_C += ./beken378/ip/lmac/src/scan/scan_task.c
-#SRC_C += ./beken378/ip/lmac/src/sta/sta_mgmt.c
-#SRC_C += ./beken378/ip/lmac/src/td/td.c
-#SRC_C += ./beken378/ip/lmac/src/tdls/tdls.c
-#SRC_C += ./beken378/ip/lmac/src/tdls/tdls_task.c
-#SRC_C += ./beken378/ip/lmac/src/tpc/tpc.c
-#SRC_C += ./beken378/ip/lmac/src/tx/tx_swdesc.c
-#SRC_C += ./beken378/ip/lmac/src/tx/txl/txl_buffer.c
-#SRC_C += ./beken378/ip/lmac/src/tx/txl/txl_buffer_shared.c
-#SRC_C += ./beken378/ip/lmac/src/tx/txl/txl_cfm.c
-#SRC_C += ./beken378/ip/lmac/src/tx/txl/txl_cntrl.c
-#SRC_C += ./beken378/ip/lmac/src/tx/txl/txl_frame.c
-#SRC_C += ./beken378/ip/lmac/src/tx/txl/txl_frame_shared.c
-#SRC_C += ./beken378/ip/lmac/src/tx/txl/txl_hwdesc.c
-#SRC_C += ./beken378/ip/lmac/src/vif/vif_mgmt.c
-#SRC_C += ./beken378/ip/mac/mac.c
-#SRC_C += ./beken378/ip/mac/mac_ie.c
-#SRC_C += ./beken378/ip/umac/src/apm/apm.c
-#SRC_C += ./beken378/ip/umac/src/apm/apm_task.c
-#SRC_C += ./beken378/ip/umac/src/bam/bam.c
-#SRC_C += ./beken378/ip/umac/src/bam/bam_task.c
-#SRC_C += ./beken378/ip/umac/src/me/me.c
-#SRC_C += ./beken378/ip/umac/src/me/me_mgmtframe.c
-#SRC_C += ./beken378/ip/umac/src/me/me_mic.c
-#SRC_C += ./beken378/ip/umac/src/me/me_task.c
-#SRC_C += ./beken378/ip/umac/src/me/me_utils.c
-#SRC_C += ./beken378/ip/umac/src/rc/rc.c
-#SRC_C += ./beken378/ip/umac/src/rc/rc_basic.c
-#SRC_C += ./beken378/ip/umac/src/rxu/rxu_cntrl.c
-#SRC_C += ./beken378/ip/umac/src/scanu/scanu.c
-#SRC_C += ./beken378/ip/umac/src/scanu/scanu_shared.c
-#SRC_C += ./beken378/ip/umac/src/scanu/scanu_task.c
-#SRC_C += ./beken378/ip/umac/src/sm/sm.c
-#SRC_C += ./beken378/ip/umac/src/sm/sm_task.c
-#SRC_C += ./beken378/ip/umac/src/txu/txu_cntrl.c 
-
-#ble lib
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ahi/src/ahi.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ahi/src/ahi_task.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/hl/src/gap/gapc/gapc.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/hl/src/gap/gapc/gapc_hci.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/hl/src/gap/gapc/gapc_sig.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/hl/src/gap/gapc/gapc_task.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/hl/src/gap/gapm/gapm.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/hl/src/gap/gapm/gapm_hci.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/hl/src/gap/gapm/gapm_task.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/hl/src/gap/gapm/gapm_util.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/hl/src/gap/smpc/smpc.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/hl/src/gap/smpc/smpc_api.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/hl/src/gap/smpc/smpc_crypto.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/hl/src/gap/smpc/smpc_util.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/hl/src/gap/smpm/smpm_api.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/hl/src/gatt/attc/attc.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/hl/src/gatt/attm/attm.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/hl/src/gatt/attm/attm_db.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/hl/src/gatt/atts/atts.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/hl/src/gatt/gattc/gattc.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/hl/src/gatt/gattc/gattc_task.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/hl/src/gatt/gattm/gattm.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/hl/src/gatt/gattm/gattm_task.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/hl/src/l2c/l2cc/l2cc.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/hl/src/l2c/l2cc/l2cc_lecb.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/hl/src/l2c/l2cc/l2cc_pdu.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/hl/src/l2c/l2cc/l2cc_sig.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/hl/src/l2c/l2cc/l2cc_task.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/hl/src/l2c/l2cm/l2cm.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/hl/src/prf/prf_utils.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/hl/src/rwble_hl/rwble_hl.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/ll/src/em/em_buf.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/ll/src/llc/llc.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/ll/src/llc/llc_ch_asses.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/ll/src/llc/llc_hci.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/ll/src/llc/llc_llcp.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/ll/src/llc/llc_task.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/ll/src/llc/llc_util.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/ll/src/lld/lld.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/ll/src/lld/lld_evt.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/ll/src/lld/lld_pdu.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/ll/src/lld/lld_sleep.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/ll/src/lld/lld_util.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/ll/src/lld/lld_wlcoex.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/ll/src/llm/llm.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/ll/src/llm/llm_hci.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/ll/src/llm/llm_task.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/ll/src/llm/llm_util.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ble/ll/src/rwble/rwble.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/ea/src/ea.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/hci/src/hci.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/hci/src/hci_fc.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/hci/src/hci_msg.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/hci/src/hci_tl.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/ip/hci/src/hci_util.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/modules/h4tl/src/h4tl.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/modules/ke/src/kernel.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/modules/ke/src/kernel_event.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/modules/ke/src/kernel_mem.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/modules/ke/src/kernel_msg.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/modules/ke/src/kernel_queue.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/modules/ke/src/kernel_task.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/modules/ke/src/kernel_timer.c 
-#SRC_C += ./beken378/driver/ble/ble_lib/plf/refip/src/arch/main/ble_arch_main.c
-
 #operation system module
 SRC_OS += ./beken378/os/FreeRTOSv9.0.0/FreeRTOS/Source/croutine.c
 SRC_OS += ./beken378/os/FreeRTOSv9.0.0/FreeRTOS/Source/event_groups.c
@@ -539,8 +398,6 @@ SRC_OS += ./beken378/os/FreeRTOSv9.0.0/FreeRTOS/Source/timers.c
 SRC_OS += ./beken378/os/FreeRTOSv9.0.0/rtos_pub.c
 SRC_C += ./beken378/os/mem_arch.c
 SRC_C += ./beken378/os/str_arch.c
-
-#examples for customer
 
 #assembling files
 SRC_S = 
@@ -587,20 +444,8 @@ LIBFLAGS += -L./beken378/lib/ -lble
 # add tuya iot lib compile support
 # -------------------------------------------------------------------
 
-LIBFLAGS += -L $(TOP_DIR)/sdk/lib/ -ltuya_iot
-CFLAGS += -DUSER_SW_VER=\"$(USER_SW_VER)\" -DAPP_BIN_NAME=\"$(APP_BIN_NAME)\"
-
-
-# -------------------------------------------------------------------
-# add tuya application components.mk
-# -------------------------------------------------------------------
-
-APP_MK_NAME := $(TOP_DIR)/apps/$(APP_BIN_NAME)/components.mk
-ifeq ($(APP_MK_NAME), $(wildcard $(APP_MK_NAME)))
-sinclude $(APP_MK_NAME)
-TY_SRC_DIRS += $(foreach n, $(COMPONENTS), $(shell find $(TOP_DIR)/components/$(n)/src -type d))
-TY_INC_DIRS += $(foreach n, $(COMPONENTS), $(shell find $(TOP_DIR)/components/$(n)/include -type d))
-endif
+# LIBFLAGS += -L $(TOP_DIR)/sdk/lib/ -ltuya_iot
+# CFLAGS += -DUSER_SW_VER=\"$(USER_SW_VER)\" -DAPP_BIN_NAME=\"$(APP_BIN_NAME)\"
 
 # -------------------------------------------------------------------
 # add tuya iot application compile support
@@ -608,9 +453,9 @@ endif
 TY_OUTPUT = $(TOP_DIR)/apps/$(APP_BIN_NAME)/output/$(APP_VERSION)
 $(shell mkdir -p $(TY_OUTPUT))
 
-TY_SRC_DIRS += $(shell find ../tuya_common/src -type d)
+#TY_SRC_DIRS += $(shell find ../tuya_common/src -type d)
 TY_SRC_DIRS += $(shell find $(TOP_DIR)/apps/$(APP_BIN_NAME)/src -type d)
-TY_SRC_DIRS += $(shell find ../tuya_os_adapter/src -type d)
+#TY_SRC_DIRS += $(shell find ../tuya_os_adapter/src -type d)
 
 SRC_C += $(foreach dir, $(TY_SRC_DIRS), $(wildcard $(dir)/*.c)) # need export
 SRC_C += $(foreach dir, $(TY_SRC_DIRS), $(wildcard $(dir)/*.cpp)) 
@@ -618,81 +463,63 @@ SRC_C += $(foreach dir, $(TY_SRC_DIRS), $(wildcard $(dir)/*.s))
 SRC_C += $(foreach dir, $(TY_SRC_DIRS), $(wildcard $(dir)/*.S)) 
 
 #TY_INC_DIRS += $(shell find $(TOP_DIR)/sdk -type d)
-SDK_INCLUDE_DIRS := $(shell find $(TOP_DIR)/sdk -name include -type d)
-TY_INC_DIRS += $(foreach dir,$(SDK_INCLUDE_DIRS),$(shell find $(dir) -type d))
+#SDK_INCLUDE_DIRS := $(shell find $(TOP_DIR)/sdk -name include -type d)
+#TY_INC_DIRS += $(foreach dir,$(SDK_INCLUDE_DIRS),$(shell find $(dir) -type d))
 
-TY_INC_DIRS += $(shell find ../tuya_os_adapter/include -type d)
-TY_INC_DIRS += $(shell find ../tuya_common/include -type d)
+#TY_INC_DIRS += $(shell find ../tuya_os_adapter/include -type d)
+#TY_INC_DIRS += $(shell find ../tuya_common/include -type d)
 TY_INC_DIRS += $(shell find $(TOP_DIR)/apps/$(APP_BIN_NAME)/include -type d)
 
 INCLUDES += $(foreach base_dir, $(TY_INC_DIRS), $(addprefix -I , $(base_dir))) 
 
-$(TY_OBJS): %.o : %.c
-	echo "build $@ ..."
-	@$(CC) $(CFLAGS) $(TY_IOT_CFLAGS) $(INCLUDES) -c $< -o $@
-	@$(CC) $(CFLAGS) $(TY_IOT_CFLAGS) $(INCLUDES) -c $< -MM -MT $@ -MF $(OBJ_DIR)/$(notdir $(patsubst %.o,%.d,$@))
-	@cp $@ $(OBJ_DIR)/$(notdir $@)
-	@chmod 777 $(OBJ_DIR)/$(notdir $@)
-
-sinclude $(TY_DEPENDENCY_LIST)
 APP_BASE = $(TY_OUTPUT)/$(APP_BIN_NAME)_$(APP_VERSION)
 UA_BIN = ${APP_BIN_NAME}_UA_${APP_VERSION}.bin
 CUR_PATH = $(shell pwd)	
+
 .PHONY: application
 application: $(TY_OUTPUT)/${UA_BIN}
 
-$(TY_OUTPUT)/${UA_BIN}: $(APP_BASE).map $(APP_BASE).asm $(APP_BASE).bin
-	@cd ${GENERATE_DIR};./${OTAFIX} ../../${APP_BASE}.bin
-	@cd ${GENERATE_DIR};./${ENCRYPT} ../../${APP_BASE}.bin 510fb093 a3cbeadc 5993a17e c7adeb03 10000 > /dev/null
-	@cd ${GENERATE_DIR}; python mpytools.py ../../${APP_BASE}_enc.bin
-	@cd ${GENERATE_DIR};./${BEKEN_PACK} config.json > /dev/null
-	@mv ${GENERATE_DIR}/all_1.00.bin $(TY_OUTPUT)/${APP_BIN_NAME}_QIO_${APP_VERSION}.bin
-	@mv ${GENERATE_DIR}/${APP_BIN_NAME}_${APP_VERSION}_enc_uart_1.00.bin $(TY_OUTPUT)/${UA_BIN}
+$(TY_OUTPUT)/${UA_BIN}: $(APP_BASE).map $(APP_BASE).asm $(APP_BASE).bin ${GENERATE_DIR}/mpytools.py
+	@echo "CRC $(notdir $@)"  
+	@cd ${GENERATE_DIR};./${ENCRYPT} ../../${APP_BASE}.bin 510fb093 a3cbeadc 5993a17e c7adeb03 10000 >/dev/null
+	@cd ${GENERATE_DIR}; python mpytools.py ../../${APP_BASE}_enc.bin ${APP_VERSION}
+	@cd ${GENERATE_DIR};./${BEKEN_PACK} config.json >/dev/null
+	@mv ${GENERATE_DIR}/all_${APP_VERSION}.bin $(TY_OUTPUT)/${APP_BIN_NAME}_QIO_${APP_VERSION}.bin
+	@mv ${GENERATE_DIR}/${APP_BIN_NAME}_${APP_VERSION}_enc_uart_${APP_VERSION}.bin $(TY_OUTPUT)/${UA_BIN}
 	@cp $(TY_OUTPUT)/${UA_BIN} /media/sf_Downloads/tuya
 
 $(APP_BASE).bin: %.bin: %.axf
-	@echo "$(notdir $<) --> $(notdir $@)"  
+	@echo "DUMP $(notdir $@)"
 	@$(OBJCOPY) -O binary $< $@
 
-
 $(APP_BASE).asm: %.asm : %.axf
-	@echo "$(notdir $<) --> $(notdir $@)"
+	@echo "DUMP $(notdir $@)"
 	@$(OBJDUMP) -d $< > $@
 	
 $(APP_BASE).map: %.map : %.axf
-	@echo "$(notdir $<) --> $(notdir $@)"
+	@echo "NM $(notdir $@)"
 	@$(NM) $< | sort > $@
 
-
 $(APP_BASE).axf: $(SRC_O) $(SRC_S_O) $(SRC_OS_O)
-ifeq ("${ota_idx}", "1")
-	@echo "$(notdir $<) --> $(notdir $@)"
+	@echo "LD $(notdir $@)"
 	@$(LD) $(LFLAGS) -o $@  $(OBJ_LIST) $(OBJ_S_LIST) $(OBJ_OS_LIST) $(LIBFLAGS) -T./beken378/build/bk7231_ota.ld
-else ifeq ("${ota_idx}", "2")
-else
-	@echo ===========================================================
-	@echo ota_idx must be "1" or "2"
-	@echo ===========================================================
-endif
-	
-
 
 $(SRC_O): %.o : %.c
-	@echo $<
+	@echo CC $<
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -MM -MT $@ -MF $(OBJ_DIR)/$(notdir $(patsubst %.o,%.d,$@))
 	@cp $@ $(OBJ_DIR)/$(notdir $@)
 	@chmod 777 $(OBJ_DIR)/$(notdir $@)
 
 $(SRC_S_O): %.o : %.S
-	@echo $<
+	@echo AS $<
 	@$(CC) $(ASMFLAGS) $(INCLUDES) -c $< -o $@
 	@$(CC) $(ASMFLAGS) $(INCLUDES) -c $< -MM -MT $@ -MF $(OBJ_DIR)/$(notdir $(patsubst %.o,%.d,$@))
 	@cp $@ $(OBJ_DIR)/$(notdir $@)
 	@chmod 777 $(OBJ_DIR)/$(notdir $@)
 
 $(SRC_OS_O): %.o : %.c
-	@echo $<
+	@echo CC $<
 	@$(CC) $(OSFLAGS) $(INCLUDES) -c $< -o $@
 	@$(CC) $(OSFLAGS) $(INCLUDES) -c $< -MM -MT $@ -MF $(OBJ_DIR)/$(notdir $(patsubst %.o,%.d,$@))
 	@cp $@ $(OBJ_DIR)/$(notdir $@)
@@ -702,24 +529,6 @@ $(SRC_OS_O): %.o : %.c
 -include $(DEPENDENCY_S_LIST)
 -include $(DEPENDENCY_OS_LIST)
 
-# -------------------------------------------------------------------	
-# Generate build info
-# -------------------------------------------------------------------	
-.PHONY: setup
-setup:
-	@echo "----------------"
-	@echo Setup $(GDB_SERVER)
-	@echo "----------------"
-	
-.PHONY: debug
-debug:
-	@if [ ! -f $(FLASH_TOOLDIR)/rtl_gdb_debug.txt ] ; then echo Please do \"make setup GDB_SERVER=[jlink or openocd]\" first; echo && false ; fi
-ifeq ($(findstring CYGWIN, $(OS)), CYGWIN) 
-	$(FLASH_TOOLDIR)/Check_Jtag.sh
-	cmd /c start $(GDB) -x $(FLASH_TOOLDIR)/rtl_gdb_debug.txt 
-else
-	$(GDB) -x $(FLASH_TOOLDIR)/rtl_gdb_debug.txt
-endif
 
 .PHONY: clean
 clean:
@@ -727,7 +536,6 @@ clean:
 	@rm -f $(SRC_O)
 	@rm -f $(SRC_S_O)
 	@rm -f $(SRC_OS_O)
-	@rm -rf $(TY_OBJS)
 	@rm -f $(TY_IOT_LIB)
 	@rm -rf $(TY_OUTPUT)
 	

@@ -1,7 +1,5 @@
 Tuya IoTOS Embedded Wi-Fi and BLE SDK for BK7231T
 
-[中文版](README_zh.md) | [English](README.md)
-
 ## Overview
 
 Developed independently by Tuya Smart, Tuya IoTOS is the world's only IoT operating system covering all levels of IoT sensing, interruption, network, platform, and application. Benefiting from Tuya Smart's accumulation in the IoT industry, TuyaIoTOS provides solutions for a full range of products from product design, R&D, to post-operation.
@@ -21,26 +19,11 @@ Features of Tuya IoTOS embedded SDK
 
 ### Dependency
 Some package dependencies need to be installed before compiling.
-#### Debian/Ubuntu
+
 ``` bash
 $ sudo apt-get install wget git python libc6-i386 
 ```
 
-
-#### Windows
-
-Supports compilating in Cygwin, MinGW, WSL2 and more environments
-
-### Get SDK
-Make sure to get SDK through git recursion:
-``` bash
-$ git clone --recursive https://github.com/tuya/tuya-iotos-embeded-sdk-wifi-ble-bk7231t.git
-```
-or
-``` bash
-$ git clone https://github.com/tuya/tuya-iotos-embeded-sdk-wifi-ble-bk7231t.git
-$ git submodule update --init
-```
 
 ### Compile
 

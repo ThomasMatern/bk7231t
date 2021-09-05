@@ -14,7 +14,7 @@
 #define _TUYA_DEVICE_H
 
 /* Includes ------------------------------------------------------------------*/
-#include "tuya_cloud_error_code.h"
+//#include "tuya_cloud_error_code.h"
     
 #ifdef __cplusplus
     extern "C" {
@@ -43,9 +43,10 @@
  * @Return: OPRT_OK: success  Other: fail
  * @Others: none
  */
+/*
 _TUYA_DEVICE_EXT \
 OPERATE_RET device_init(VOID);
-
+*/
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */

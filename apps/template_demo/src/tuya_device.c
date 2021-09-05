@@ -9,25 +9,26 @@
  * @Date: 2021-01-23 16:33:00
  * @LastEditTime: 2021-01-27 17:00:00
  */
+#include "generic.h"
 
 #define _TUYA_DEVICE_GLOBAL
 
 /* Includes ------------------------------------------------------------------*/
-#include "uni_log.h"
-#include "tuya_iot_wifi_api.h"
-#include "tuya_hal_system.h"
-#include "tuya_iot_com_api.h"
-#include "tuya_cloud_com_defs.h"
-#include "gw_intf.h"
-#include "gpio_test.h"
-#include "tuya_main.h"
-#include "tuya_gpio.h"
-#include "tuya_key.h"
-#include "tuya_led.h"
+//#include "uni_log.h"
+//#include "tuya_iot_wifi_api.h"
+//#include "tuya_hal_system.h"
+//#include "tuya_iot_com_api.h"
+//#include "tuya_cloud_com_defs.h"
+//#include "gw_intf.h"
+//#include "gpio_test.h"
+//#include "tuya_main.h"
+//#include "tuya_gpio.h"
+//#include "tuya_key.h"
+//#include "tuya_led.h"
 
 /* Private includes ----------------------------------------------------------*/
 #include "tuya_device.h"
-
+#if 0
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* wifi 相关配置 */
@@ -479,4 +480,10 @@ OPERATE_RET device_init(VOID)
     }
 */
     return op_ret;
+}
+#endif
+
+void user_main(void)
+{
+	bk_printf("Sample Application\r\n");
 }
